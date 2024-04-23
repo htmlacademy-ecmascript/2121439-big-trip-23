@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
-* Студент: [Егор Вилявин](https://up.htmlacademy.ru/ecmascript/23/user/2121439).
-* Наставник: `Неизвестно`.
+- Студент: [Егор Вилявин](https://up.htmlacademy.ru/ecmascript/23/user/2121439).
+- Наставник: [Юлия Волкова](https://htmlacademy.ru/profile/id423707).
 
 ---
 
