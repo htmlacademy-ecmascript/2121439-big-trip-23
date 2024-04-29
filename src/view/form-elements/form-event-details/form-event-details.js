@@ -1,20 +1,8 @@
-import { createElement } from '../../../render';
+import { createFormButtonOffersTemplate } from './form-button-offers';
+import { createFormDetailDestinationTemplate } from './form-details-destination';
 
-const createFormEventDetailsTemplate = () => '<section class="event__details"></section>';
-
-export default class FormEventDetails {
-  getTemplate() {
-    return createFormEventDetailsTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
-}
+export const createFormEventDetailsTemplate = (formTypeSelect) =>
+  `<section class="event__details">
+    ${createFormButtonOffersTemplate()}
+    ${createFormDetailDestinationTemplate(formTypeSelect)}
+  </section>`;

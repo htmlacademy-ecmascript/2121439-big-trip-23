@@ -1,18 +1,18 @@
-import { createElement } from "../render";
+import { createElement } from '../render';
 
-const createTripListTemplate = (
+const createTripEventsItemTemplate = (
   contentElement
 ) => `<li class="trip-events__item">
           ${contentElement}
     </li>`;
 
-export default class TripListItemView {
+export default class TripEventsItemView {
   constructor(contentElement) {
     this.contentElement = contentElement;
   }
 
   getTemplate() {
-    return createTripListTemplate(this.contentElement);
+    return createTripEventsItemTemplate(this.contentElement);
   }
 
   getElement() {

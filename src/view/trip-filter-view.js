@@ -1,6 +1,6 @@
-import { createElement } from "../render";
+import { createElement } from '../render';
 
-const FILTER_VALUES = ["Everything", "Future", "Present", "Past"];
+const FILTER_VALUES = ['Everything', 'Future', 'Present', 'Past'];
 
 const createFilterTemplate = () =>
   FILTER_VALUES.map(
@@ -13,7 +13,7 @@ const createFilterTemplate = () =>
 
 const createTripFilterTemplate =
   () => `<form class="trip-filters" action="#" method="get">
-            ${createFilterTemplate().join("")}
+            ${createFilterTemplate().join('')}
             <button class="visually-hidden" type="submit">Accept filter</button>
           </form>`;
 

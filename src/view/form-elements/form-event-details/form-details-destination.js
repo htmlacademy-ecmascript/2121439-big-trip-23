@@ -1,25 +1,14 @@
-import { createElement } from '../../../render';
+import { createFormDetailsDestinationImagesTemplate } from './form-details-destination-images';
+import { FormType } from '../../../const';
 
-const createFormDetailDestinationTemplate = () => `
+export const createFormDetailDestinationTemplate = (formTypeSelect) => `
           <section class="event__section  event__section--destination">
             <h3 class="event__section-title  event__section-title--destination">Destination</h3>
             <p class="event__destination-description">Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>
+            ${
+  formTypeSelect === FormType.FORM_ADD
+    ? createFormDetailsDestinationImagesTemplate()
+    : ''
+}
           </section>
 `;
-
-export default class FormDetailsDestination {
-  getTemplate() {
-    return createFormDetailDestinationTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
-}

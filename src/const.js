@@ -1,61 +1,66 @@
 export const TYPE_EVENTS = [
   {
-    value: "Taxi",
-    img: "img/icons/taxi.png",
+    value: 'Taxi',
+    img: 'img/icons/taxi.png',
   },
   {
-    value: "Bus",
-    img: "img/icons/bus.png",
+    value: 'Bus',
+    img: 'img/icons/bus.png',
   },
   {
-    value: "Train",
-    img: "img/icons/train.png",
+    value: 'Train',
+    img: 'img/icons/train.png',
   },
   {
-    value: "Ship",
-    img: "img/icons/ship.png",
+    value: 'Ship',
+    img: 'img/icons/ship.png',
   },
   {
-    value: "Drive",
-    img: "img/icons/drive.png",
+    value: 'Drive',
+    img: 'img/icons/drive.png',
   },
   {
-    value: "Flight",
-    img: "img/icons/flight.png",
+    value: 'Flight',
+    img: 'img/icons/flight.png',
   },
   {
-    value: "Check-in",
-    img: "img/icons/check-in.png",
+    value: 'Check-in',
+    img: 'img/icons/check-in.png',
   },
   {
-    value: "Sightseeing",
-    img: "img/icons/sightseeing.png",
+    value: 'Sightseeing',
+    img: 'img/icons/sightseeing.png',
   },
   {
-    value: "Restaurant",
-    img: "img/icons/restaurant.png",
+    value: 'Restaurant',
+    img: 'img/icons/restaurant.png',
   },
 ];
 
 export const SORT_VALUES = [
   {
-    value: "Day",
+    value: 'Day',
     isChecked: true,
   },
   {
-    value: "Event",
+    value: 'Event',
     isDisabled: true,
   },
   {
-    value: "Time",
+    value: 'Time',
     isChecked: false,
   },
   {
-    value: "Price",
+    value: 'Price',
     isChecked: false,
   },
   {
-    value: "Offers",
+    value: 'Offers',
     isDisabled: true,
   },
 ];
+
+export const FormType = {
+  FORM_EDIT: 'form-edit',
+  FORM_ADD: 'form-add',
+};

@@ -1,6 +1,4 @@
-import { createElement } from "../../../../render";
-
-const createFormEventDestinationTemplate =
+export const createFormEventDestinationTemplate =
   () => `<div class="event__field-group  event__field-group--destination">
   <label class="event__label  event__type-output" for="event-destination-1">
     Flight
@@ -12,20 +10,3 @@ const createFormEventDestinationTemplate =
     <option value="Chamonix"></option>
   </datalist>
 </div>`;
-
-export default class FormEventDestination {
-  getTemplate() {
-    return createFormEventDestinationTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
-}
