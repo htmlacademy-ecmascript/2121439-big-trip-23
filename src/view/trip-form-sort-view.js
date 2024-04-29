@@ -2,7 +2,7 @@ import { createElement } from "../render";
 
 import { SORT_VALUES } from "../const";
 
-const createSortValuesElement = () =>
+const createSortValuesTemplate = () =>
   SORT_VALUES.map(
     (
       item
@@ -18,7 +18,7 @@ const createSortValuesElement = () =>
 
 const tripEventsBoardViewTemplate = () => `
     <form class="trip-events__trip-sort trip-sort" action="#" method="get">
-      ${createSortValuesElement().join("")}
+      ${createSortValuesTemplate().join("")}
     </form>
 `;
 

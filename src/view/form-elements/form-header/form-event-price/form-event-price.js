@@ -1,6 +1,7 @@
-import { createElement } from '../../../../render';
+import { createElement } from "../../../../render";
 
-const createFormEventPriceElement = () => `<div class="event__field-group  event__field-group--price">
+const createFormEventPriceTemplate =
+  () => `<div class="event__field-group  event__field-group--price">
   <label class="event__label" for="event-price-1">
     <span class="visually-hidden">Price</span>
     €
@@ -9,7 +10,7 @@ const createFormEventPriceElement = () => `<div class="event__field-group  event
 </div>`;
 export default class FormEventPrice {
   getTemplate() {
-    return createFormEventPriceElement();
+    return createFormEventPriceTemplate();
   }
 
   getElement() {

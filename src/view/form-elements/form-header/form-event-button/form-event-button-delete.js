@@ -1,8 +1,9 @@
-import { createElement } from '../../../../render';
+import { createElement } from "../../../../render";
 
-const createFormEventButtonDeleteElement = (formAdd) => `<button class="event__reset-btn" type="reset">${
-  formAdd ? 'Cancel' : 'Delete'
-}</button>`;
+const createFormEventButtonDeleteTemplate = (formAdd) =>
+  `<button class="event__reset-btn" type="reset">${
+    formAdd ? "Cancel" : "Delete"
+  }</button>`;
 
 export default class FormEventButtonDelete {
   constructor(formAdd) {
@@ -10,7 +11,7 @@ export default class FormEventButtonDelete {
   }
 
   getTemplate() {
-    return createFormEventButtonDeleteElement(this.formAdd);
+    return createFormEventButtonDeleteTemplate(this.formAdd);
   }
 
   getElement() {

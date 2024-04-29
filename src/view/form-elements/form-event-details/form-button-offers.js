@@ -1,7 +1,7 @@
 import { BUTTON_OFFERS } from "../../../mokky/mokky";
 import { createElement } from "../../../render";
 
-const createFormButtonOffersElement = () =>
+const createButtonsFormOfferTemplate = () =>
   BUTTON_OFFERS.map(
     (item) => ` <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-${
@@ -24,7 +24,7 @@ const createFormButtonOffersTemplate =
   () => `<section class="event__section  event__section--offers">
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
               <div class="event__available-offers">
-                  ${createFormButtonOffersElement().join("")}
+                  ${createButtonsFormOfferTemplate().join("")}
               </div>
           </section>`;
 

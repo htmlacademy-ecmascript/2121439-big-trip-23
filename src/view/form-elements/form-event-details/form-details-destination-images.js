@@ -1,14 +1,14 @@
 import { DESTINATION_IMAGES } from "../../../mokky/mokky";
 import { createElement } from "../../../render";
 
-const createFormDetailsDestinationImageElement = (images) =>
+const createFormDetailsDestinationImageTemplate = (images) =>
   images.map(
     (item) => `<img class="event__photo" src="${item}" alt="Event photo">`
   );
 const createFormDetailsDestinationImagesTemplate =
   () => `<div class="event__photos-container">
             <div class="event__photos-tape">
-              ${createFormDetailsDestinationImageElement(
+              ${createFormDetailsDestinationImageTemplate(
                 DESTINATION_IMAGES
               ).join("")}
             </div>

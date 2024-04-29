@@ -1,5 +1,6 @@
-import { createElement } from '../../../../render';
-const createFormEventTimeElement = () => `<div class="event__field-group  event__field-group--time">
+import { createElement } from "../../../../render";
+const createFormEventTimeTemplate =
+  () => `<div class="event__field-group  event__field-group--time">
   <label class="visually-hidden" for="event-start-time-1">From</label>
   <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="18/03/19 12:25">
   —
@@ -9,7 +10,7 @@ const createFormEventTimeElement = () => `<div class="event__field-group  event_
 
 export default class FormEventTime {
   getTemplate() {
-    return createFormEventTimeElement();
+    return createFormEventTimeTemplate();
   }
 
   getElement() {

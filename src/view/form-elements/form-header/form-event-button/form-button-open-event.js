@@ -1,12 +1,13 @@
-import { createElement } from '../../../../render';
+import { createElement } from "../../../../render";
 
-const createFormButtonEventOpenElement = () => `<button class="event__rollup-btn" type="button">
+const createFormButtonEventOpenTemplate =
+  () => `<button class="event__rollup-btn" type="button">
   <span class="visually-hidden">Open event</span>
   </button>`;
 
 export default class FormButtonEventOpen {
   getTemplate() {
-    return createFormButtonEventOpenElement();
+    return createFormButtonEventOpenTemplate();
   }
 
   getElement() {

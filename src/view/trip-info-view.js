@@ -1,6 +1,6 @@
-import { createElement } from '../render';
+import { createElement } from "../render";
 
-const createTripInfoElement = () => `
+const createTripInfoTemplate = () => `
     <section class="trip-main__trip-info trip-info">
       <div class="trip-info__main">
         <h1 class="trip-info__title">Amsterdam &mdash; Chamonix &mdash; Geneva</h1>
@@ -14,7 +14,7 @@ const createTripInfoElement = () => `
 
 export default class TripInfoView {
   getTemplate() {
-    return createTripInfoElement();
+    return createTripInfoTemplate();
   }
 
   getElement() {

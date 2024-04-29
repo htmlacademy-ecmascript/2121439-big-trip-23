@@ -1,10 +1,11 @@
-import { createElement } from '../../../render';
+import { createElement } from "../../../render";
 
-const createFormHeaderElement = () => ' <header class="event__header"></header>';
+const createFormHeaderTemplate = () =>
+  ' <header class="event__header"></header>';
 
 export default class FormHeader {
   getTemplate() {
-    return createFormHeaderElement();
+    return createFormHeaderTemplate();
   }
 
   getElement() {

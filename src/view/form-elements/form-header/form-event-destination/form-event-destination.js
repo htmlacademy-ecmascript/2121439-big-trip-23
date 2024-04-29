@@ -1,6 +1,7 @@
-import { createElement } from '../../../../render';
+import { createElement } from "../../../../render";
 
-const createFormEventDestinationElement = () => `<div class="event__field-group  event__field-group--destination">
+const createFormEventDestinationTemplate =
+  () => `<div class="event__field-group  event__field-group--destination">
   <label class="event__label  event__type-output" for="event-destination-1">
     Flight
   </label>
@@ -14,7 +15,7 @@ const createFormEventDestinationElement = () => `<div class="event__field-group 
 
 export default class FormEventDestination {
   getTemplate() {
-    return createFormEventDestinationElement();
+    return createFormEventDestinationTemplate();
   }
 
   getElement() {
