@@ -1,12 +1,16 @@
-import { DESTINATION_IMAGES } from '../../../const';
-import { createElement } from '../../../render';
+import { DESTINATION_IMAGES } from "../../../mokky/mokky";
+import { createElement } from "../../../render";
 
-const createFormDetailsDestinationImageElement = (arr) => arr.map((item) => `<img class="event__photo" src="${item}" alt="Event photo">`);
-const createFormDetailsDestinationImagesTemplate = () => `<div class="event__photos-container">
+const createFormDetailsDestinationImageElement = (images) =>
+  images.map(
+    (item) => `<img class="event__photo" src="${item}" alt="Event photo">`
+  );
+const createFormDetailsDestinationImagesTemplate =
+  () => `<div class="event__photos-container">
             <div class="event__photos-tape">
               ${createFormDetailsDestinationImageElement(
-    DESTINATION_IMAGES
-  ).join('')}
+                DESTINATION_IMAGES
+              ).join("")}
             </div>
           </div>`;
 
