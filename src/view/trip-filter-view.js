@@ -1,6 +1,5 @@
 import { createElement } from '../render';
-
-const FILTER_VALUES = ['Everything', 'Future', 'Present', 'Past'];
+import { FILTER_VALUES } from '../const';
 
 const createFilterTemplate = () =>
   FILTER_VALUES.map(

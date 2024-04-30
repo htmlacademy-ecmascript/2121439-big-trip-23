@@ -64,3 +64,5 @@ export const FormType = {
   FORM_EDIT: 'form-edit',
   FORM_ADD: 'form-add',
 };
+
+export const FILTER_VALUES = ['Everything', 'Future', 'Present', 'Past'];
