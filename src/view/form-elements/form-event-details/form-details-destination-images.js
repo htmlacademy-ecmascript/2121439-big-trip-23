@@ -8,7 +8,7 @@ export const createFormDetailsDestinationImagesTemplate =
   () => `<div class="event__photos-container">
             <div class="event__photos-tape">
               ${createFormDetailsDestinationImageTemplate(
-                DESTINATION_IMAGES
-              ).join('')}
+    DESTINATION_IMAGES
+  ).join('')}
             </div>
           </div>`;
