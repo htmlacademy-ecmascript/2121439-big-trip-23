@@ -1,4 +1,4 @@
-import { DESTINATION_IMAGES } from '../../../mokky/mokky';
+import { DESTINATION_IMAGES } from '../../../mock/mocks';
 
 const createFormDetailsDestinationImageTemplate = (images) =>
   images.map(
@@ -8,7 +8,7 @@ export const createFormDetailsDestinationImagesTemplate =
   () => `<div class="event__photos-container">
             <div class="event__photos-tape">
               ${createFormDetailsDestinationImageTemplate(
-    DESTINATION_IMAGES
-  ).join('')}
+                DESTINATION_IMAGES
+              ).join('')}
             </div>
           </div>`;
