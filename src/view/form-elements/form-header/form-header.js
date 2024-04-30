@@ -7,18 +7,23 @@ import { createFormEventButtonDeleteTemplate } from './form-event-button/form-ev
 import { createFormButtonEventOpenTemplate } from './form-event-button/form-button-open-event';
 import { FormType } from '../../../const';
 
-export const createFormHeaderTemplate = (
-  formTypeSelect
-) => `<header class="event__header">
+export const createFormHeaderTemplate = (formTypeSelect) => {
+  const getRenderByFormType = (formTypeSelect) => {
+    return `${
+      formTypeSelect === FormType.FORM_ADD
+        ? ''
+        : createFormButtonEventOpenTemplate()
+    }`;
+  };
+
+  return `<header class="event__header">
   ${createFormTypeEventTemplate()}
   ${createFormEventDestinationTemplate()}
   ${createFormEventTimeTemplate()}
   ${createFormEventPriceTemplate()}
   ${createFormEventButtonSubmitTemplate()}
   ${createFormEventButtonDeleteTemplate(formTypeSelect)}
-  ${
-  formTypeSelect === FormType.FORM_ADD
-    ? ''
-    : createFormButtonEventOpenTemplate()
-}
+  ${getRenderByFormType()}
+
 </header>`;
+};
