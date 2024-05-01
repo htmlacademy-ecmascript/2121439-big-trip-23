@@ -2,11 +2,12 @@ import { createFormDetailsDestinationImagesTemplate } from './form-details-desti
 import { FormType } from '../../../const';
 
 export const createFormDetailDestinationTemplate = (formTypeSelect) => {
-  const getRenderByFormType = () => `${
-    formTypeSelect === FormType.FORM_ADD
-      ? createFormDetailsDestinationImagesTemplate()
-      : ''
-  }`;
+  const getRenderByFormType = () =>
+    `${
+      formTypeSelect === FormType.FORM_ADD
+        ? createFormDetailsDestinationImagesTemplate()
+        : ''
+    }`;
 
   return `
   <section class="event__section  event__section--destination">

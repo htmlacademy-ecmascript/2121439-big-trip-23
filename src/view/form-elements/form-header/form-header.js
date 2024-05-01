@@ -8,11 +8,12 @@ import { createFormButtonEventOpenTemplate } from './form-event-button/form-butt
 import { FormType } from '../../../const';
 
 export const createFormHeaderTemplate = (formTypeSelect) => {
-  const getRenderByFormType = () => `${
-    formTypeSelect === FormType.FORM_ADD
-      ? ''
-      : createFormButtonEventOpenTemplate()
-  }`;
+  const getRenderByFormType = () =>
+    `${
+      formTypeSelect === FormType.FORM_ADD
+        ? ''
+        : createFormButtonEventOpenTemplate()
+    }`;
 
   return `<header class="event__header">
   ${createFormTypeEventTemplate()}

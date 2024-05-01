@@ -22,6 +22,10 @@ const tripMainHeaderControlsElement = tripMainHeaderElement.querySelector(
 const pageTripEventsElement = document.querySelector('.trip-events');
 
 export default class ContentPresenter {
+  constructor(pointData) {
+    this.points = pointData;
+    console.log(this.points);
+  }
   //Header render
   renderTripInfoView() {
     render(
