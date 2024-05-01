@@ -1,9 +1,8 @@
 import ContentPresenter from './presenter/content-presenter.js';
-import TripPointData from './model/trip-point-data.js';
+import PointsModel from './model/points-model.js';
+const pointsModel = new PointsModel().getPointData();
 
-const contentPresenter = new ContentPresenter(
-  new TripPointData().SORTED_POINTS
-);
+const contentPresenter = new ContentPresenter(pointsModel);
 
 //Presenter render
 
