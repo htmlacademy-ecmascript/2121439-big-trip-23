@@ -9,8 +9,6 @@ import TripEventsItemView from '../view/trip-events-item-view';
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
 import FormView from '../view/trip-form-view';
 
-const EVENT_POINT_COUNT = 3;
-
 //Header element
 const pageHeaderElement = document.querySelector('.page-header__container');
 const tripMainHeaderElement = pageHeaderElement.querySelector('.trip-main');
@@ -22,10 +20,10 @@ const tripMainHeaderControlsElement = tripMainHeaderElement.querySelector(
 const pageTripEventsElement = document.querySelector('.trip-events');
 
 export default class ContentPresenter {
-  constructor(pointData) {
-    this.points = pointData;
-    console.log(this.points);
+  constructor(points) {
+    this.points = points;
   }
+
   //Header render
   renderTripInfoView() {
     render(
@@ -51,12 +49,12 @@ export default class ContentPresenter {
   renderTripEventsItemView() {
     this.tripEventsList =
       pageTripEventsElement.querySelector('.trip-events__list');
-    for (let i = 0; i < EVENT_POINT_COUNT; i++) {
-      render(
-        new TripEventsItemView(new TripListEventElement().getTemplate()),
-        this.tripEventsList
-      );
-    }
+    render(
+      new TripEventsItemView(
+        new TripListEventElement(this.points).getTemplate()
+      ),
+      this.tripEventsList
+    );
   }
 
   renderTripFormEditPointView(formTypeSelect) {

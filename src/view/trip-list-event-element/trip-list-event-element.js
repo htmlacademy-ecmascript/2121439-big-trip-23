@@ -37,8 +37,12 @@ const createTripListEventTemplate = () => `<div class="event">
 </div>`;
 
 export default class TripListEventElement {
+  constructor(points) {
+    this.points = points;
+  }
+
   getTemplate() {
-    return createTripListEventTemplate();
+    return createTripListEventTemplate(this.points);
   }
 
   getElement() {
