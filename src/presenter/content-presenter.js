@@ -20,8 +20,10 @@ const tripMainHeaderControlsElement = tripMainHeaderElement.querySelector(
 const pageTripEventsElement = document.querySelector('.trip-events');
 
 export default class ContentPresenter {
-  constructor(points) {
+  constructor({ points, pointOffers, pointDestinations }) {
     this.points = points;
+    this.pointOffers = pointOffers;
+    this.pointDestinations = pointDestinations;
   }
 
   //Header render
@@ -51,7 +53,7 @@ export default class ContentPresenter {
       pageTripEventsElement.querySelector('.trip-events__list');
     render(
       new TripEventsItemView(
-        new TripListEventElement(this.points).getTemplate()
+        new TripListEventElement(this.points, this.pointOffers).getTemplate()
       ),
       this.tripEventsList
     );

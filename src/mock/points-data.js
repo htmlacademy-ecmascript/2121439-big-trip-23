@@ -439,7 +439,7 @@ export const POINT_DESTINATIONS = [
   },
 ];
 
-export const ADDITIONAL_OFFERS_POINTS = [
+export const ADDITIONAL_POINT_OFFERS = [
   {
     type: 'taxi',
     offers: [
