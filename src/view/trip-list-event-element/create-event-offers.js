@@ -1,5 +1,6 @@
 const createEventOffer = (offerId, pointOffers) => {
   const offers = [];
+
   const getOfferPointType = (offerItem) =>
     offerId.find((item) => {
       if (offerItem.id === item) {

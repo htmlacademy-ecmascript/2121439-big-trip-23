@@ -21,9 +21,9 @@ const pageTripEventsElement = document.querySelector('.trip-events');
 
 export default class ContentPresenter {
   constructor({ points, pointOffers, pointDestinations }) {
-    this.points = points;
-    this.pointOffers = pointOffers;
-    this.pointDestinations = pointDestinations;
+    this.points = [...points];
+    this.pointOffers = [...pointOffers];
+    this.pointDestinations = [...pointDestinations];
   }
 
   //Header render
