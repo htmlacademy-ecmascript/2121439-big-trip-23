@@ -5,7 +5,7 @@ const createFilterTemplate = () =>
   FILTER_VALUES.map(
     (value) => `<div class="trip-filters__filter">
               <input id="filter-${value.toLocaleLowerCase()}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${value.toLocaleLowerCase()}">
-              <label class="trip-filters__filter-label" for="filter-everything">${value}</label>
+              <label class="trip-filters__filter-label" for="filter-${value.toLocaleLowerCase()}">${value}</label>
             </div>
             `
   );

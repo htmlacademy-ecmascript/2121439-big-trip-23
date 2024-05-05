@@ -11,8 +11,8 @@ const createSortValuesTemplate = () =>
                 ${item.isChecked ? 'checked' : ''}
                 ${item.isDisabled ? 'disabled' : ''}>
                 <label class="trip-sort__btn" for="sort-${item.value.toLocaleLowerCase()}">${
-  item.value
-}</label>
+      item.value
+    }</label>
             </div>`
   );
 
@@ -22,7 +22,7 @@ const tripEventsBoardViewTemplate = () => `
     </form>
 `;
 
-export default class TripFormSort {
+export default class TripFormSortView {
   getTemplate() {
     return tripEventsBoardViewTemplate();
   }
