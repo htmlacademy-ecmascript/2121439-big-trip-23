@@ -3,7 +3,7 @@ import { FormType } from '../const';
 import TripInfoView from '../view/trip-info-view';
 import TripFilterView from '../view/trip-filter-view';
 
-import TripFormSort from '../view/trip-form-sort-view';
+import TripFormSortView from '../view/trip-form-sort-view';
 import TripListView from '../view/trip-list-view';
 import TripEventsItemView from '../view/trip-events-item-view';
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
@@ -40,8 +40,8 @@ export default class ContentPresenter {
   }
 
   //Main render
-  renderTripFormSort() {
-    render(new TripFormSort(), pageTripEventsElement);
+  renderTripFormSortView() {
+    render(new TripFormSortView(), pageTripEventsElement);
   }
 
   renderTripListView() {
@@ -76,7 +76,7 @@ export default class ContentPresenter {
   }
 
   init() {
-    this.renderTripFormSort();
+    this.renderTripFormSortView();
     this.renderTripFilterView();
     this.renderTripInfoView();
     this.renderTripListView();

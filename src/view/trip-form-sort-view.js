@@ -22,7 +22,7 @@ const tripEventsBoardViewTemplate = () => `
     </form>
 `;
 
-export default class TripFormSort {
+export default class TripFormSortView {
   getTemplate() {
     return tripEventsBoardViewTemplate();
   }

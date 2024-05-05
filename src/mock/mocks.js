@@ -20,7 +20,7 @@ export const BUTTON_OFFERS = [
   {
     title: 'Choose seats',
     price: '5',
-    value: 'meal',
+    value: 'seats',
     isChecked: false,
   },
   {
