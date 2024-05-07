@@ -1,4 +1,4 @@
-export const POINTS_DATA = [
+export const pointsData = [
   {
     id: 'b1787d3a-2824-4666-ad29-e9fe1313326c',
     basePrice: 562,
@@ -302,7 +302,7 @@ export const POINTS_DATA = [
   },
 ];
 
-export const POINT_DESTINATIONS = [
+export const pointDestinations = [
   {
     id: 'fd711e58-3cac-43b8-a3ce-cfda284d3fcc',
     description: '',
@@ -439,7 +439,7 @@ export const POINT_DESTINATIONS = [
   },
 ];
 
-export const ADDITIONAL_POINT_OFFERS = [
+export const additionalPointOffers = [
   {
     type: 'taxi',
     offers: [
@@ -460,7 +460,7 @@ export const ADDITIONAL_POINT_OFFERS = [
       },
       {
         id: 'dba262fc-ba7b-4bd9-86f8-e40364fd754f',
-        title: 'Drive quickly, I\'m in a hurry',
+        title: "Drive quickly, I'm in a hurry",
         price: 157,
       },
       {

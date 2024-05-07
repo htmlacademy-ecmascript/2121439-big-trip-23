@@ -1,13 +1,13 @@
 import {
-  ADDITIONAL_POINT_OFFERS,
-  POINTS_DATA,
-  POINT_DESTINATIONS,
+  pointsData,
+  additionalPointOffers,
+  pointDestinations,
 } from '../mock/points-data';
 
 export default class PointsModel {
-  points = [...POINTS_DATA];
-  pointOffers = [...ADDITIONAL_POINT_OFFERS];
-  pointDestinations = [...POINT_DESTINATIONS];
+  points = [...pointsData];
+  pointOffers = [...additionalPointOffers];
+  pointDestinations = [...pointDestinations];
 
   getPointData() {
     return this.points;

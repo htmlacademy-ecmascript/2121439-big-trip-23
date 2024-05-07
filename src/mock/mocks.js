@@ -1,4 +1,4 @@
-export const BUTTON_OFFERS = [
+export const buttonOffers = [
   {
     title: 'Add luggage',
     price: '50',
@@ -31,7 +31,7 @@ export const BUTTON_OFFERS = [
   },
 ];
 
-export const DESTINATION_IMAGES = [
+export const destinationsImage = [
   'img/photos/1.jpg',
   'img/photos/2.jpg',
   'img/photos/3.jpg',

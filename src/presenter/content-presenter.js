@@ -22,9 +22,6 @@ const pageTripEventsElement = document.querySelector('.trip-events');
 export default class ContentPresenter {
   constructor(pointsModel) {
     this.pointsModel = pointsModel;
-    // this.points = [...points];
-    // this.pointOffers = [...pointOffers];
-    // this.pointDestinations = [...pointDestinations];
   }
 
   //Header render
@@ -92,6 +89,7 @@ export default class ContentPresenter {
     this.points = [...this.pointsModel.getPointData()];
     this.pointOffers = [...this.pointsModel.getPointOffers()];
     this.pointDestinations = [...this.pointsModel.getPointDestinations()];
+
     this.renderTripFormSortView();
     this.renderTripFilterView();
     this.renderTripInfoView();
