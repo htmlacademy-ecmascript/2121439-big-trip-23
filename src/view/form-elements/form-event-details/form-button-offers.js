@@ -1,15 +1,13 @@
-import { BUTTON_OFFERS } from '../../../mock/mocks';
-
-const createButtonsFormOfferTemplate = () =>
-  BUTTON_OFFERS.map(
+const createButtonsFormOfferTemplate = (pointOffers) =>
+  pointOffers[4].offers.map(
     (item) => ` <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-${
-  item.value
-}-1" type="checkbox" name="event-offer-${item.value}" ${
+  item.type
+}-1" type="checkbox" name="event-offer-${item.type}" ${
   item.isChecked ? 'checked' : ''
 }>
                 <label class="event__offer-label" for="event-offer-${
-  item.value
+  item.type
 }-1">
                   <span class="event__offer-title">${item.title}</span>
                   +€&nbsp;
@@ -19,10 +17,11 @@ const createButtonsFormOfferTemplate = () =>
             `
   );
 
-export const createFormButtonOffersTemplate =
-  () => `<section class="event__section  event__section--offers">
+export const createFormButtonOffersTemplate = (
+  pointOffers
+) => `<section class="event__section  event__section--offers">
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
               <div class="event__available-offers">
-                  ${createButtonsFormOfferTemplate().join('')}
+                  ${createButtonsFormOfferTemplate(pointOffers).join('')}
               </div>
           </section>`;

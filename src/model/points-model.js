@@ -20,4 +20,10 @@ export default class PointsModel {
   getPointDestinations() {
     return this.pointDestinations;
   }
+
+  init() {
+    this.getPointData();
+    this.getPointDestinations();
+    this.getPointOffers();
+  }
 }

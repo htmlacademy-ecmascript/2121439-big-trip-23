@@ -1,15 +1,15 @@
-const createEventOffer = (offerId, pointOffers) => {
+const createEventOffer = (pointOfferId, pointOffers) => {
   const offers = [];
 
   const getOfferPointType = (offerItem) =>
-    offerId.find((item) => {
+    pointOfferId.find((item) => {
       if (offerItem.id === item) {
         offers.push(offerItem);
       }
     });
 
   pointOffers.map((items) => {
-    items.offers.find((offer) => {
+    items.offers.map((offer) => {
       getOfferPointType(offer);
     });
   });
@@ -29,8 +29,8 @@ const createEventOffer = (offerId, pointOffers) => {
 };
 
 export const createEventOffers = (
-  offerId,
+  pointOfferId,
   pointOffers
 ) => `<ul class="event__selected-offers">
-  ${createEventOffer(offerId, pointOffers)}
+  ${createEventOffer(pointOfferId, pointOffers)}
 </ul>`;

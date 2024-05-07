@@ -7,7 +7,7 @@ import TripFormSortView from '../view/trip-form-sort-view';
 import TripListView from '../view/trip-list-view';
 import TripEventsItemView from '../view/trip-events-item-view';
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
-import FormView from '../view/trip-form-view';
+import TripFormView from '../view/trip-form-view';
 
 //Header element
 const pageHeaderElement = document.querySelector('.page-header__container');
@@ -20,10 +20,11 @@ const tripMainHeaderControlsElement = tripMainHeaderElement.querySelector(
 const pageTripEventsElement = document.querySelector('.trip-events');
 
 export default class ContentPresenter {
-  constructor({ points, pointOffers, pointDestinations }) {
-    this.points = [...points];
-    this.pointOffers = [...pointOffers];
-    this.pointDestinations = [...pointDestinations];
+  constructor(pointsModel) {
+    this.pointsModel = pointsModel;
+    // this.points = [...points];
+    // this.pointOffers = [...pointOffers];
+    // this.pointDestinations = [...pointDestinations];
   }
 
   //Header render
@@ -61,7 +62,13 @@ export default class ContentPresenter {
 
   renderTripFormEditPointView(formTypeSelect) {
     render(
-      new TripEventsItemView(new FormView(formTypeSelect).getTemplate()),
+      new TripEventsItemView(
+        new TripFormView(
+          formTypeSelect,
+          this.pointDestinations,
+          this.pointOffers
+        ).getTemplate()
+      ),
       this.tripEventsList,
       RenderPosition.AFTERBEGIN
     );
@@ -69,18 +76,28 @@ export default class ContentPresenter {
 
   renderTripFormPointAddView(formTypeSelect) {
     render(
-      new TripEventsItemView(new FormView(formTypeSelect).getTemplate()),
+      new TripEventsItemView(
+        new TripFormView(
+          formTypeSelect,
+          this.pointDestinations,
+          this.pointOffers
+        ).getTemplate()
+      ),
       this.tripEventsList,
-      RenderPosition.BEFOREEND
+      RenderPosition.AFTERBEGIN
     );
   }
 
   init() {
+    this.points = [...this.pointsModel.getPointData()];
+    this.pointOffers = [...this.pointsModel.getPointOffers()];
+    this.pointDestinations = [...this.pointsModel.getPointDestinations()];
     this.renderTripFormSortView();
     this.renderTripFilterView();
     this.renderTripInfoView();
     this.renderTripListView();
     this.renderTripEventsItemView();
+    this.renderTripFormPointAddView(FormType.FORM_ADD);
     this.renderTripFormEditPointView(FormType.FORM_EDIT);
   }
 }
