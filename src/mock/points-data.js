@@ -460,7 +460,7 @@ export const additionalPointOffers = [
       },
       {
         id: 'dba262fc-ba7b-4bd9-86f8-e40364fd754f',
-        title: "Drive quickly, I'm in a hurry",
+        title: 'Drive quickly, I\'m in a hurry',
         price: 157,
       },
       {
