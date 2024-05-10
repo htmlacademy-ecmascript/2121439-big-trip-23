@@ -1,4 +1,4 @@
-import { createElement } from '../render';
+import AbstractView from '../framework/view/abstract-view';
 
 const createTripEventsItemTemplate = (
   contentElement
@@ -6,23 +6,13 @@ const createTripEventsItemTemplate = (
           ${contentElement}
     </li>`;
 
-export default class TripEventsItemView {
+export default class TripEventsItemView extends AbstractView {
   constructor(contentElement) {
+    super();
     this.contentElement = contentElement;
   }
 
-  getTemplate() {
+  get template() {
     return createTripEventsItemTemplate(this.contentElement);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }

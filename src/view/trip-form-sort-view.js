@@ -1,4 +1,4 @@
-import { createElement } from '../render';
+import AbstractView from '../framework/view/abstract-view';
 
 import { SORT_VALUES } from '../const';
 
@@ -22,20 +22,8 @@ const tripEventsBoardViewTemplate = () => `
     </form>
 `;
 
-export default class TripFormSortView {
-  getTemplate() {
+export default class TripFormSortView extends AbstractView {
+  get template() {
     return tripEventsBoardViewTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }

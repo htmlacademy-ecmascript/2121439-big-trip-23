@@ -1,4 +1,5 @@
-import { RenderPosition, render } from '../render';
+import { RenderPosition, render } from '../framework/render';
+
 import { FormType } from '../const';
 import TripInfoView from '../view/trip-info-view';
 import TripFilterView from '../view/trip-filter-view';
@@ -53,7 +54,7 @@ export default class ContentPresenter {
       pageTripEventsElement.querySelector('.trip-events__list');
     render(
       new TripEventsItemView(
-        new TripListEventElement(this.points, this.pointOffers).getTemplate()
+        new TripListEventElement(this.points, this.pointOffers).template
       ),
       this.tripEventsList
     );
@@ -66,7 +67,7 @@ export default class ContentPresenter {
           formTypeSelect,
           this.pointDestinations,
           this.pointOffers
-        ).getTemplate()
+        ).template
       ),
       this.tripEventsList,
       RenderPosition.AFTERBEGIN
@@ -80,7 +81,7 @@ export default class ContentPresenter {
           formTypeSelect,
           this.pointDestinations,
           this.pointOffers
-        ).getTemplate()
+        ).template
       ),
       this.tripEventsList,
       RenderPosition.AFTERBEGIN
@@ -93,10 +94,10 @@ export default class ContentPresenter {
     this.pointDestinations = [
       ...this.pointDestinationsModel.getPointDestinations(),
     ];
-
+    this.renderTripInfoView();
     this.renderTripFormSortView();
     this.renderTripFilterView();
-    this.renderTripInfoView();
+
     this.renderTripListView();
     this.renderTripEventsItemView();
     this.renderTripFormPointAddView(FormType.FORM_ADD);
