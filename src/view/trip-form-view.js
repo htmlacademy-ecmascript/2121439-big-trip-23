@@ -1,22 +1,42 @@
-import { createElement } from '../render';
+import { createElement } from "../render";
+import { FormType } from "../const";
 
-import { createFormHeaderTemplate } from './form-elements/form-header/form-header';
-import { createFormEventDetailsTemplate } from './form-elements/form-event-details/form-event-details';
+import { createFormHeaderTemplate } from "./form-elements/form-header/form-header";
+import { createFormEventDetailsTemplate } from "./form-elements/form-event-details/form-event-details";
+
+const renderByTypeFormElement = (
+  formTypeSelect,
+  pointDestinations,
+  pointOffers
+) => {
+  if (formTypeSelect === FormType.FORM_EDIT) {
+    return `<form class="event event--edit" action="#" method="post">
+    ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
+    ${createFormEventDetailsTemplate(
+      formTypeSelect,
+      pointDestinations,
+      pointOffers
+    )}
+    </form>
+`;
+  } else if (formTypeSelect === FormType.FORM_ADD) {
+    return `<form class="event event--edit" action="#" method="post">
+    ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
+    ${createFormEventDetailsTemplate(
+      formTypeSelect,
+      pointDestinations,
+      pointOffers
+    )}
+    </form>
+`;
+  }
+};
 
 const createTripFormTemplate = (
   formTypeSelect,
   pointDestinations,
   pointOffers
-) => `
-        <form class="event event--edit" action="#" method="post">
-        ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
-        ${createFormEventDetailsTemplate(
-    formTypeSelect,
-    pointDestinations,
-    pointOffers
-  )}
-        </form>
-`;
+) => renderByTypeFormElement(formTypeSelect, pointDestinations, pointOffers);
 
 export default class TripFormView {
   constructor(formTypeSelect, pointDestinations, pointOffers) {
