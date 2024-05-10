@@ -13,20 +13,20 @@ const renderByTypeFormElement = (
     return `<form class="event event--edit" action="#" method="post">
     ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
     ${createFormEventDetailsTemplate(
-      formTypeSelect,
-      pointDestinations,
-      pointOffers
-    )}
+    formTypeSelect,
+    pointDestinations,
+    pointOffers
+  )}
     </form>
 `;
   } else if (formTypeSelect === FormType.FORM_ADD) {
     return `<form class="event event--edit" action="#" method="post">
     ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
     ${createFormEventDetailsTemplate(
-      formTypeSelect,
-      pointDestinations,
-      pointOffers
-    )}
+    formTypeSelect,
+    pointDestinations,
+    pointOffers
+  )}
     </form>
 `;
   }
