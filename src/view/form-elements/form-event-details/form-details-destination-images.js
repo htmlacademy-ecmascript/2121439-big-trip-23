@@ -1,14 +1,12 @@
-import { DESTINATION_IMAGES } from '../../../mock/mocks';
+const createFormDetailsDestinationImageTemplate = (images) => images.pictures.map((image) => `<img class="event__photo" src="${image.src}" alt="Event photo">`);
 
-const createFormDetailsDestinationImageTemplate = (images) =>
-  images.map(
-    (item) => `<img class="event__photo" src="${item}" alt="Event photo">`
-  );
-export const createFormDetailsDestinationImagesTemplate =
-  () => `<div class="event__photos-container">
-            <div class="event__photos-tape">
-              ${createFormDetailsDestinationImageTemplate(
-    DESTINATION_IMAGES
-  ).join('')}
-            </div>
-          </div>`;
+export const createFormDetailsDestinationImagesTemplate = (
+  pointDestinationImages
+) => `<div class="event__photos-container">
+  <div class="event__photos-tape">
+
+    ${createFormDetailsDestinationImageTemplate(pointDestinationImages).join(
+    ''
+  )}
+  </div>
+</div>`;

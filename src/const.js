@@ -66,3 +66,6 @@ export const FormType = {
 };
 
 export const FILTER_VALUES = ['Everything', 'Future', 'Present', 'Past'];
+
+export const MILLISECONDS = 60000;
+export const MINUTES = 60;

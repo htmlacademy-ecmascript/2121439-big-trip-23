@@ -3,20 +3,34 @@ import { createElement } from '../render';
 import { createFormHeaderTemplate } from './form-elements/form-header/form-header';
 import { createFormEventDetailsTemplate } from './form-elements/form-event-details/form-event-details';
 
-const createTripFormTemplate = (formTypeSelect) => `
+const createTripFormTemplate = (
+  formTypeSelect,
+  pointDestinations,
+  pointOffers
+) => `
         <form class="event event--edit" action="#" method="post">
-        ${createFormHeaderTemplate(formTypeSelect)}
-        ${createFormEventDetailsTemplate(formTypeSelect)}
+        ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
+        ${createFormEventDetailsTemplate(
+    formTypeSelect,
+    pointDestinations,
+    pointOffers
+  )}
         </form>
 `;
 
 export default class TripFormView {
-  constructor(formTypeSelect) {
+  constructor(formTypeSelect, pointDestinations, pointOffers) {
     this.formTypeSelect = formTypeSelect;
+    this.pointDestinations = [...pointDestinations];
+    this.pointOffers = [...pointOffers];
   }
 
   getTemplate() {
-    return createTripFormTemplate(this.formTypeSelect);
+    return createTripFormTemplate(
+      this.formTypeSelect,
+      this.pointDestinations,
+      this.pointOffers
+    );
   }
 
   getElement() {
