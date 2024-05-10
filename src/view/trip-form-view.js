@@ -13,20 +13,20 @@ const renderByTypeFormElement = (
     return `<form class="event event--edit" action="#" method="post">
     ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
     ${createFormEventDetailsTemplate(
-    formTypeSelect,
-    pointDestinations,
-    pointOffers
-  )}
+      formTypeSelect,
+      pointDestinations,
+      pointOffers
+    )}
     </form>
 `;
   } else if (formTypeSelect === FormType.FORM_ADD) {
     return `<form class="event event--edit" action="#" method="post">
     ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
     ${createFormEventDetailsTemplate(
-    formTypeSelect,
-    pointDestinations,
-    pointOffers
-  )}
+      formTypeSelect,
+      pointDestinations,
+      pointOffers
+    )}
     </form>
 `;
   }
@@ -39,18 +39,21 @@ const createTripFormTemplate = (
 ) => renderByTypeFormElement(formTypeSelect, pointDestinations, pointOffers);
 
 export default class TripFormView extends AbstractView {
+  #formTypeSelect = null;
+  #pointDestinations = null;
+  #pointOffers = null;
   constructor(formTypeSelect, pointDestinations, pointOffers) {
     super();
-    this.formTypeSelect = formTypeSelect;
-    this.pointDestinations = [...pointDestinations];
-    this.pointOffers = [...pointOffers];
+    this.#formTypeSelect = formTypeSelect;
+    this.#pointDestinations = [...pointDestinations];
+    this.#pointOffers = [...pointOffers];
   }
 
   get template() {
     return createTripFormTemplate(
-      this.formTypeSelect,
-      this.pointDestinations,
-      this.pointOffers
+      this.#formTypeSelect,
+      this.#pointDestinations,
+      this.#pointOffers
     );
   }
 }

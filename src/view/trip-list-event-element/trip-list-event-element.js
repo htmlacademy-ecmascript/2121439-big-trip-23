@@ -7,20 +7,21 @@ const favoriteClassActive = (isFavorite) =>
 
 const findOfferTypePoint = (pointOfferId) => pointOfferId;
 
-const createTripListEventTemplate = (points, pointOffers) => points
-  .map((point) => {
-    const { dateFrom, dateTo, type, basePrice, offers, isFavorite } = point;
-    const {
-      pointDateEndTime,
-      pointDateFromTime,
-      startTime,
-      endTime,
-      pointDateTime,
-      pointDateStartTime,
-      timeCalculation,
-    } = pointTimeFormatter(dateFrom, dateTo);
+const createTripListEventTemplate = (points, pointOffers) =>
+  points
+    .map((point) => {
+      const { dateFrom, dateTo, type, basePrice, offers, isFavorite } = point;
+      const {
+        pointDateEndTime,
+        pointDateFromTime,
+        startTime,
+        endTime,
+        pointDateTime,
+        pointDateStartTime,
+        timeCalculation,
+      } = pointTimeFormatter(dateFrom, dateTo);
 
-    return `<div class="event">
+      return `<div class="event">
       <time class="event__date" datetime="${pointDateTime}">${pointDateFromTime}</time>
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
@@ -50,17 +51,19 @@ const createTripListEventTemplate = (points, pointOffers) => points
         <span class="visually-hidden">Open event</span>
       </button>
     </div>`;
-  })
-  .join('');
+    })
+    .join('');
 
 export default class TripListEventElement extends AbstractView {
+  #points = null;
+  #pointOffers = null;
   constructor(points, pointOffers) {
     super();
-    this.points = points;
-    this.pointOffers = pointOffers;
+    this.#points = points;
+    this.#pointOffers = pointOffers;
   }
 
   get template() {
-    return createTripListEventTemplate(this.points, this.pointOffers);
+    return createTripListEventTemplate(this.#points, this.#pointOffers);
   }
 }

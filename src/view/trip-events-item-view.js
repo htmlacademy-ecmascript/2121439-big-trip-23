@@ -7,12 +7,13 @@ const createTripEventsItemTemplate = (
     </li>`;
 
 export default class TripEventsItemView extends AbstractView {
+  #contentElement = null;
   constructor(contentElement) {
     super();
-    this.contentElement = contentElement;
+    this.#contentElement = contentElement;
   }
 
   get template() {
-    return createTripEventsItemTemplate(this.contentElement);
+    return createTripEventsItemTemplate(this.#contentElement);
   }
 }
