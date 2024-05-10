@@ -1,9 +1,9 @@
 import { pointDestinations } from '../mock/points-data';
 
 export default class PointDestinationsModel {
-  pointDestinations = [...pointDestinations];
+  #destinations = [...pointDestinations];
 
-  getPointDestinations() {
-    return this.pointDestinations;
+  get pointDestinations() {
+    return this.#destinations;
   }
 }

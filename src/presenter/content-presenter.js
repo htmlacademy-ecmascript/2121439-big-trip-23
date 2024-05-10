@@ -89,11 +89,9 @@ export default class ContentPresenter {
   }
 
   init() {
-    this.points = [...this.pointsModel.getPointData()];
-    this.pointOffers = [...this.additionalOfferModel.getAdditionalOffer()];
-    this.pointDestinations = [
-      ...this.pointDestinationsModel.getPointDestinations(),
-    ];
+    this.points = [...this.pointsModel.pointData];
+    this.pointOffers = [...this.additionalOfferModel.additionalOffers];
+    this.pointDestinations = [...this.pointDestinationsModel.pointDestinations];
     this.renderTripInfoView();
     this.renderTripFormSortView();
     this.renderTripFilterView();

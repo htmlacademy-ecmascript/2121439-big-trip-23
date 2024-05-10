@@ -1,8 +1,8 @@
 import { additionalPointOffers } from '../mock/points-data';
 export default class AdditionalOfferModel {
-  additionalPointOffers = [...additionalPointOffers];
+  #offers = [...additionalPointOffers];
 
-  getAdditionalOffer() {
-    return this.additionalPointOffers;
+  get additionalOffers() {
+    return this.#offers;
   }
 }
