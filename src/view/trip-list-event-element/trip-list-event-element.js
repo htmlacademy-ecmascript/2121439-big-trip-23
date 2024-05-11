@@ -1,27 +1,27 @@
 import AbstractView from '../../framework/view/abstract-view';
+import { createRollupButton } from './create-rollup-button';
 import { createEventOffers } from './create-event-offers';
 import { pointTimeFormatter } from '../../utils/point-time-formatter';
 
 const favoriteClassActive = (isFavorite) =>
   `event__favorite-btn ${isFavorite ? 'event__favorite-btn--active' : ''}`;
 
-const findOfferTypePoint = (pointOfferId) => pointOfferId;
+const createTripListEventTemplate = (point, pointAddOffers) => {
+  const { dateFrom, dateTo, type, basePrice, isFavorite } = point;
 
-const createTripListEventTemplate = (points, pointOffers) =>
-  points
-    .map((point) => {
-      const { dateFrom, dateTo, type, basePrice, offers, isFavorite } = point;
-      const {
-        pointDateEndTime,
-        pointDateFromTime,
-        startTime,
-        endTime,
-        pointDateTime,
-        pointDateStartTime,
-        timeCalculation,
-      } = pointTimeFormatter(dateFrom, dateTo);
+  const {
+    pointDateTime,
+    pointDateFromTime,
+    pointDateStartTime,
+    pointDateEndTime,
+    startTime,
+    endTime,
+    timeCalculation,
+  } = pointTimeFormatter(dateFrom, dateTo);
 
-      return `<div class="event">
+  return `
+  <li class="trip-events__item">
+  <div class="event">
       <time class="event__date" datetime="${pointDateTime}">${pointDateFromTime}</time>
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
@@ -39,7 +39,7 @@ const createTripListEventTemplate = (points, pointOffers) =>
         &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
       </p>
       <h4 class="visually-hidden">Offers:</h4>
-      ${createEventOffers(findOfferTypePoint(offers), pointOffers)}
+      ${createEventOffers(pointAddOffers)}
 
       <button class="${favoriteClassActive(isFavorite)}" type="button">
         <span class="visually-hidden">Add to favorite</span>
@@ -47,23 +47,30 @@ const createTripListEventTemplate = (points, pointOffers) =>
           <path d="M14 21l-8.22899 4.3262 1.57159-9.1631L.685209 9.67376 9.8855 8.33688 14 0l4.1145 8.33688 9.2003 1.33688-6.6574 6.48934 1.5716 9.1631L14 21z"/>
         </svg>
       </button>
-      <button class="event__rollup-btn" type="button">
-        <span class="visually-hidden">Open event</span>
-      </button>
-    </div>`;
-    })
-    .join('');
+      ${createRollupButton()}
+    </div>
+    </li>`;
+};
 
 export default class TripListEventElement extends AbstractView {
-  #points = null;
-  #pointOffers = null;
-  constructor(points, pointOffers) {
+  #point = [];
+  #pointAddOffers = [];
+  #rollupButton = null;
+
+  constructor(point, pointAddOffers, onEditClick) {
     super();
-    this.#points = points;
-    this.#pointOffers = pointOffers;
+    this.#point = point;
+    this.#pointAddOffers = pointAddOffers;
+    this.onEditClick = onEditClick;
+    this.#rollupButton = this.element.querySelector('.event__rollup-btn');
+    this.#rollupButton.addEventListener('click', this.#onClick);
   }
 
+  #onClick(evt) {
+    evt.preventDefault();
+    this.onEditClick();
+  }
   get template() {
-    return createTripListEventTemplate(this.#points, this.#pointOffers);
+    return createTripListEventTemplate(this.#point, this.#pointAddOffers);
   }
 }

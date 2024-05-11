@@ -1,11 +1,13 @@
-import { RenderPosition, render } from '../framework/render';
+import { RenderPosition, render, replace } from '../framework/render';
+import { FormType } from '../const';
 
 import TripInfoView from '../view/trip-info-view';
 import TripFilterView from '../view/trip-filter-view';
+import TripFormView from '../view/trip-form-view';
 
 import TripFormSortView from '../view/trip-form-sort-view';
 import TripListView from '../view/trip-list-view';
-import TripEventsItemView from '../view/trip-events-item-view';
+
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
 
 //Header element
@@ -22,9 +24,12 @@ export default class ContentPresenter {
   #pointsModel = null;
   #additionalOfferModel = null;
   #pointDestinationsModel = null;
-  #points = null;
-  #pointOffers = null;
-  #pointDestinations = null;
+  #points = [];
+  #pointOffers = [];
+  #pointDestinations = [];
+  #formTypeSelect = FormType;
+  #tripEventsList = null;
+
   constructor(pointsModel, additionalOfferModel, pointDestinationsModel) {
     this.#pointsModel = pointsModel;
     this.#additionalOfferModel = additionalOfferModel;
@@ -54,14 +59,37 @@ export default class ContentPresenter {
   }
 
   #renderTripEventsItemView() {
-    this.tripEventsList =
+    this.#tripEventsList =
       pageTripEventsElement.querySelector('.trip-events__list');
-    render(
-      new TripEventsItemView(
-        new TripListEventElement(this.#points, this.#pointOffers).template
-      ),
-      this.tripEventsList
-    );
+    const onEditClick = () => {
+      return console.log(1);
+    };
+
+    this.#points.map((point) => {
+      const pointAddOffers = this.#additionalOfferModel.getOffersById(
+        point.type,
+        point.offers
+      );
+      render(
+        new TripListEventElement(point, pointAddOffers, onEditClick),
+        this.#tripEventsList
+      );
+    });
+  }
+
+  #renderTripEventElement() {
+    const tripEventElement = new TripListEventElement(
+      this.#points,
+      this.#pointOffers
+    ).template;
+
+    const tripEventFormEdit = new TripFormView(
+      this.#formTypeSelect.FORM_EDIT,
+      this.#pointDestinations,
+      this.#pointOffers
+    ).template;
+
+    return tripEventElement;
   }
 
   init() {
