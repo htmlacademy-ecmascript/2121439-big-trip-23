@@ -4,6 +4,7 @@ import { FormType } from '../const';
 import TripInfoView from '../view/trip-info-view';
 import TripFilterView from '../view/trip-filter-view';
 import TripFormView from '../view/trip-form-view';
+import TripPointEmptyView from '../view/trip-point-empty-view';
 
 import TripFormSortView from '../view/trip-form-sort-view';
 import TripListView from '../view/trip-list-view';
@@ -29,6 +30,7 @@ export default class ContentPresenter {
   #pointDestinations = [];
   #formTypeSelect = FormType;
   #tripEventsList = null;
+  #isPointEmpty = null;
 
   constructor(pointsModel, additionalOfferModel, pointDestinationsModel) {
     this.#pointsModel = pointsModel;
@@ -112,17 +114,26 @@ export default class ContentPresenter {
     render(tripListEventElement, this.#tripEventsList);
   }
 
+  #renderTripPointEmptyView() {
+    render(new TripPointEmptyView(), pageTripEventsElement);
+  }
+
   init() {
     this.#points = [...this.#pointsModel.pointData];
     this.#pointOffers = [...this.#additionalOfferModel.additionalOffers];
     this.#pointDestinations = [
       ...this.#pointDestinationsModel.pointDestinations,
     ];
+    this.#isPointEmpty = this.#points.length === 0;
 
-    this.#renderTripInfoView();
-    this.#renderTripFormSortView();
-    this.#renderTripFilterView();
-    this.#renderTripListView();
-    this.#points.map((point) => this.#renderTripEventsItemView(point));
+    if (!this.#isPointEmpty) {
+      this.#renderTripInfoView();
+      this.#renderTripFormSortView();
+      this.#renderTripFilterView();
+      this.#renderTripListView();
+      this.#points.map((point) => this.#renderTripEventsItemView(point));
+    } else {
+      this.#renderTripPointEmptyView();
+    }
   }
 }
