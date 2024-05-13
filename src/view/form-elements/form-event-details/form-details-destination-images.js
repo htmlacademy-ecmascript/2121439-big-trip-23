@@ -1,12 +1,17 @@
-const createFormDetailsDestinationImageTemplate = (images) => images.pictures.map((image) => `<img class="event__photo" src="${image.src}" alt="Event photo">`);
+const createFormDetailsDestinationImageTemplate = (images) => images.map((image) => `<img class="event__photo" src="${image.src}" alt="Event photo">`);
 
 export const createFormDetailsDestinationImagesTemplate = (
   pointDestinationImages
-) => `<div class="event__photos-container">
+) => {
+  const isImagesLength =
+    pointDestinationImages.length === 0
+      ? '<p style="margin-left: 20px;">No images</p>'
+      : createFormDetailsDestinationImageTemplate(pointDestinationImages).join(
+        ''
+      );
+  return `<div class="event__photos-container">
   <div class="event__photos-tape">
-
-    ${createFormDetailsDestinationImageTemplate(pointDestinationImages).join(
-    ''
-  )}
+    ${isImagesLength}
   </div>
 </div>`;
+};
