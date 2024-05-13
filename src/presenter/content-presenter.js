@@ -58,38 +58,58 @@ export default class ContentPresenter {
     render(new TripListView(), pageTripEventsElement);
   }
 
-  #renderTripEventsItemView() {
+  #renderTripEventsItemView(point) {
     this.#tripEventsList =
       pageTripEventsElement.querySelector('.trip-events__list');
-    const onEditClick = () => {
-      return console.log(1);
+
+    const pointAdditionalOffers = this.#additionalOfferModel.getOffersById(
+      point.type,
+      point.offers
+    );
+
+    const allOffers = this.#additionalOfferModel.getOffersByType(point.type);
+
+    const escKeyDownHandler = (evt) => {
+      if (evt.key === 'Escape') {
+        evt.preventDefault();
+        switchToEventPoint();
+        document.removeEventListener('keydown', escKeyDownHandler);
+      }
     };
 
-    this.#points.map((point) => {
-      const pointAddOffers = this.#additionalOfferModel.getOffersById(
-        point.type,
-        point.offers
-      );
-      render(
-        new TripListEventElement(point, pointAddOffers, onEditClick),
-        this.#tripEventsList
-      );
+    const tripListEventElement = new TripListEventElement({
+      point,
+      pointAdditionalOffers,
+      onEditClick: () => {
+        switchToFormEdit();
+        document.addEventListener('keydown', escKeyDownHandler);
+      },
     });
-  }
 
-  #renderTripEventElement() {
-    const tripEventElement = new TripListEventElement(
-      this.#points,
-      this.#pointOffers
-    ).template;
+    const onFormSubmit = () => {
+      switchToEventPoint();
+      document.removeEventListener('keydown', escKeyDownHandler);
+    };
 
-    const tripEventFormEdit = new TripFormView(
-      this.#formTypeSelect.FORM_EDIT,
-      this.#pointDestinations,
-      this.#pointOffers
-    ).template;
+    const tripEventFormEdit = new TripFormView({
+      formType: this.#formTypeSelect.FORM_EDIT,
+      destinations: this.#pointDestinations,
+      pointOffers: this.#pointOffers,
+      point: point,
+      allOffers: allOffers,
+      onEditClick: switchToEventPoint,
+      onFormSubmit: onFormSubmit,
+    });
 
-    return tripEventElement;
+    function switchToFormEdit() {
+      replace(tripEventFormEdit, tripListEventElement);
+    }
+
+    function switchToEventPoint() {
+      replace(tripListEventElement, tripEventFormEdit);
+    }
+
+    render(tripListEventElement, this.#tripEventsList);
   }
 
   init() {
@@ -98,10 +118,11 @@ export default class ContentPresenter {
     this.#pointDestinations = [
       ...this.#pointDestinationsModel.pointDestinations,
     ];
+
     this.#renderTripInfoView();
     this.#renderTripFormSortView();
     this.#renderTripFilterView();
     this.#renderTripListView();
-    this.#renderTripEventsItemView();
+    this.#points.map((point) => this.#renderTripEventsItemView(point));
   }
 }

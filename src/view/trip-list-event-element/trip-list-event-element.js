@@ -54,23 +54,28 @@ const createTripListEventTemplate = (point, pointAddOffers) => {
 
 export default class TripListEventElement extends AbstractView {
   #point = [];
-  #pointAddOffers = [];
+  #pointAdditionalOffers = [];
   #rollupButton = null;
+  #handleClick = null;
 
-  constructor(point, pointAddOffers, onEditClick) {
+  constructor({ point, pointAdditionalOffers, onEditClick }) {
     super();
     this.#point = point;
-    this.#pointAddOffers = pointAddOffers;
-    this.onEditClick = onEditClick;
+    this.#pointAdditionalOffers = pointAdditionalOffers;
+    this.#handleClick = onEditClick;
     this.#rollupButton = this.element.querySelector('.event__rollup-btn');
     this.#rollupButton.addEventListener('click', this.#onClick);
   }
 
-  #onClick(evt) {
+  #onClick = (evt) => {
     evt.preventDefault();
-    this.onEditClick();
-  }
+    this.#handleClick();
+  };
+
   get template() {
-    return createTripListEventTemplate(this.#point, this.#pointAddOffers);
+    return createTripListEventTemplate(
+      this.#point,
+      this.#pointAdditionalOffers
+    );
   }
 }

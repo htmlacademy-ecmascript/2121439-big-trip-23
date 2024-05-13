@@ -7,22 +7,22 @@ import { createFormEventButtonDeleteTemplate } from './form-event-button/form-ev
 import { createFormButtonEventOpenTemplate } from './form-event-button/form-button-open-event';
 import { FormType } from '../../../const';
 
-export const createFormHeaderTemplate = (formTypeSelect, pointOffers) => {
-  const getRenderByFormType = () =>
-    `${
-      formTypeSelect === FormType.FORM_ADD
-        ? ''
-        : createFormButtonEventOpenTemplate()
-    }`;
+const getRenderByFormType = (formType) =>
+  `${
+    formType === FormType.FORM_ADD ? '' : createFormButtonEventOpenTemplate()
+  }`;
 
-  return `<header class="event__header">
-  ${createFormTypeEventTemplate('img/icons/flight.png', pointOffers)}
-  ${createFormEventDestinationTemplate()}
+export const createFormHeaderTemplate = (
+  formTypeSelect,
+  pointOffers,
+  point
+) => `<header class="event__header">
+  ${createFormTypeEventTemplate(point, pointOffers)}
+  ${createFormEventDestinationTemplate(point)}
   ${createFormEventTimeTemplate()}
-  ${createFormEventPriceTemplate()}
+  ${createFormEventPriceTemplate(point.basePrice)}
   ${createFormEventButtonSubmitTemplate()}
   ${createFormEventButtonDeleteTemplate(formTypeSelect)}
   ${getRenderByFormType()}
 
 </header>`;
-};

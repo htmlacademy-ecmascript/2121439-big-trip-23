@@ -1,25 +1,21 @@
 import { createFormDetailsDestinationImagesTemplate } from './form-details-destination-images';
-import { FormType } from '../../../const';
 
 export const createFormDetailDestinationTemplate = (
-  formTypeSelect,
-  pointDestinations
+  pointDestinations,
+  point
 ) => {
-  const getRenderByFormType = () =>
-    `${
-      formTypeSelect === FormType.FORM_ADD
-        ? createFormDetailsDestinationImagesTemplate(pointDestinations[1])
-        : ''
-    }`;
+  const destination = pointDestinations.find(
+    (destinationId) => destinationId.id === point.destination
+  );
 
-  return `
-  <section class="event__section  event__section--destination">
+  const isDescription =
+    destination.description === '' ? 'No description' : destination.description;
+
+  return `<section class="event__section  event__section--destination">
     <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-    <p class="event__destination-description">${
-  pointDestinations[1].description
-}</p>
+    <p class="event__destination-description">${isDescription}</p>
 
-    ${getRenderByFormType()}
+    ${createFormDetailsDestinationImagesTemplate(destination.pictures)}
 
   </section>
 `;
