@@ -1,13 +1,9 @@
 import { pointsData } from '../mock/points-data';
 
 export default class PointsModel {
-  points = [...pointsData];
+  #points = [...pointsData];
 
-  getPointData() {
-    return this.points;
-  }
-
-  init() {
-    this.getPointData();
+  get pointData() {
+    return this.#points;
   }
 }

@@ -64,3 +64,4 @@ export default class TripFormView {
     this.element = null;
   }
 }
+
