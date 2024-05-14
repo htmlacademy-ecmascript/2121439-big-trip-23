@@ -1,30 +1,32 @@
-import AbstractView from '../framework/view/abstract-view';
+import { createElement } from '../render';
 import { FormType } from '../const';
+
 import { createFormHeaderTemplate } from './form-elements/form-header/form-header';
 import { createFormEventDetailsTemplate } from './form-elements/form-event-details/form-event-details';
 
 const renderByTypeFormElement = (
   formTypeSelect,
   pointDestinations,
-  pointOffers,
-  point,
-  allOffers
+  pointOffers
 ) => {
   if (formTypeSelect === FormType.FORM_EDIT) {
     return `<form class="event event--edit" action="#" method="post">
-    ${createFormHeaderTemplate(formTypeSelect, pointOffers, point)}
-    ${createFormEventDetailsTemplate(pointDestinations, allOffers, point)}
+    ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
+    ${createFormEventDetailsTemplate(
+      formTypeSelect,
+      pointDestinations,
+      pointOffers
+    )}
     </form>
 `;
   } else if (formTypeSelect === FormType.FORM_ADD) {
     return `<form class="event event--edit" action="#" method="post">
     ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
     ${createFormEventDetailsTemplate(
-    formTypeSelect,
-    pointDestinations,
-    allOffers,
-    point
-  )}
+      formTypeSelect,
+      pointDestinations,
+      pointOffers
+    )}
     </form>
 `;
   }
@@ -33,68 +35,32 @@ const renderByTypeFormElement = (
 const createTripFormTemplate = (
   formTypeSelect,
   pointDestinations,
-  pointOffers,
-  point,
-  allOffers
-) =>
-  `<li class="trip-events__item">${renderByTypeFormElement(
-    formTypeSelect,
-    pointDestinations,
-    pointOffers,
-    point,
-    allOffers
-  )}</li>`;
-export default class TripFormView extends AbstractView {
-  #formTypeSelect = null;
-  #pointDestinations = null;
-  #pointOffers = null;
-  #point = null;
-  #handleClickEdit = null;
-  #handleFormSubmit = null;
-  #rollupButton = null;
-  #allOffers = null;
+  pointOffers
+) => renderByTypeFormElement(formTypeSelect, pointDestinations, pointOffers);
 
-  constructor({
-    formType: formTypeSelect,
-    destinations: pointDestinations,
-    pointOffers: pointOffers,
-    point: point,
-    onEditClick: onEditClick,
-    onFormSubmit: onFormSubmit,
-    allOffers: allOffers,
-  }) {
-    super();
-    this.#formTypeSelect = formTypeSelect;
-    this.#pointDestinations = [...pointDestinations];
-    this.#pointOffers = [...pointOffers];
-    this.#point = point;
-    this.#allOffers = allOffers;
-    this.#handleClickEdit = onEditClick;
-    this.#handleFormSubmit = onFormSubmit;
-    this.#rollupButton = this.element.querySelector('.event__rollup-btn');
-    this.#rollupButton.addEventListener('click', this.#onClickEdit);
-    this.element
-      .querySelector('form')
-      .addEventListener('submit', this.#onFormSubmit);
+export default class TripFormView {
+  constructor(formTypeSelect, pointDestinations, pointOffers) {
+    this.formTypeSelect = formTypeSelect;
+    this.pointDestinations = [...pointDestinations];
+    this.pointOffers = [...pointOffers];
   }
 
-  get template() {
+  getTemplate() {
     return createTripFormTemplate(
-      this.#formTypeSelect,
-      this.#pointDestinations,
-      this.#pointOffers,
-      this.#point,
-      this.#allOffers
+      this.formTypeSelect,
+      this.pointDestinations,
+      this.pointOffers
     );
   }
 
-  #onClickEdit = (evt) => {
-    evt.preventDefault();
-    this.#handleClickEdit();
-  };
+  getElement() {
+    if (!this.element) {
+      this.element = createElement(this.getTemplate());
+    }
+    return this.element;
+  }
 
-  #onFormSubmit = (evt) => {
-    evt.preventDefault();
-    this.#handleFormSubmit();
-  };
+  removeElement() {
+    this.element = null;
+  }
 }
