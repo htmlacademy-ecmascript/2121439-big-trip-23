@@ -1,4 +1,6 @@
 import { RenderPosition, render, replace } from '../framework/render';
+import { generateFilters } from '../utils/point-time-filters';
+
 import { FormType } from '../const';
 
 import TripInfoView from '../view/trip-info-view';
@@ -47,8 +49,9 @@ export default class ContentPresenter {
     );
   }
 
-  #renderTripFilterView() {
-    render(new TripFilterView(), tripMainHeaderControlsElement);
+  #renderTripFilterView(points) {
+    const filters = generateFilters(points);
+    render(new TripFilterView({ filters }), tripMainHeaderControlsElement);
   }
 
   //Main render
@@ -129,7 +132,7 @@ export default class ContentPresenter {
     if (!this.#isPointEmpty) {
       this.#renderTripInfoView();
       this.#renderTripFormSortView();
-      this.#renderTripFilterView();
+      this.#renderTripFilterView(this.#points);
       this.#renderTripListView();
       this.#points.map((point) => this.#renderTripEventsItemView(point));
     } else {

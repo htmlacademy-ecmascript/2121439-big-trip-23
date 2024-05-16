@@ -69,3 +69,12 @@ export const FILTER_VALUES = ['Everything', 'Future', 'Present', 'Past'];
 
 export const MILLISECONDS = 60000;
 export const MINUTES = 60;
+export const DATE_NOW = new Date().toISOString();
+export const DAYS_TIME = 24;
+
+export const FilterType = {
+  EVERYTHING: 'Everything',
+  PAST: 'Past',
+  PRESENT: 'Present',
+  FUTURE: 'Future',
+};

@@ -1,4 +1,4 @@
-import { MILLISECONDS, MINUTES } from '../const';
+import { MILLISECONDS, MINUTES, DAYS_TIME } from '../const';
 
 export const pointTimeFormatter = (pointDateFrom, pointDateTo) => {
   const date = new Date(pointDateFrom);
@@ -33,8 +33,26 @@ export const pointTimeFormatter = (pointDateFrom, pointDateTo) => {
     const calculationHours = Math.floor(
       timeToMilliseconds / MILLISECONDS / MINUTES
     );
+    const isDays = calculationHours >= DAYS_TIME;
 
-    timeCalculation = `${calculationHours}H`;
+    if (isDays) {
+      const entireDays = Math.floor(calculationHours / DAYS_TIME);
+      const entireMinutes = Math.floor(
+        (calculationHours / DAYS_TIME - entireDays) * DAYS_TIME * MINUTES
+      );
+
+      if (Math.floor(entireMinutes / DAYS_TIME) === 0) {
+        timeCalculation = `${entireDays}D 00M`;
+      }
+
+      timeCalculation = `${entireDays}D ${
+        Math.floor(entireMinutes / DAYS_TIME) === 0
+          ? '00'
+          : Math.floor(entireMinutes / DAYS_TIME)
+      }M`;
+    } else {
+      timeCalculation = `${calculationHours}H`;
+    }
   } else {
     timeCalculation = `${Math.floor(timeToMilliseconds / MILLISECONDS)}M`;
   }
