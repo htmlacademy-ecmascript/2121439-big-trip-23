@@ -1,4 +1,5 @@
 import { render, replace, remove } from '../framework/render';
+
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
 import TripFormView from '../view/trip-form-view';
 import AdditionalOfferModel from '../model/additional-offer-model';
@@ -6,23 +7,29 @@ import { FormType } from '../const';
 
 const pageTripEventsElement = document.querySelector('.trip-events');
 
-export default class PointsPresenter {
+export default class PointPresenter {
   #pointElementComponent = null;
   #pointEditElementComponent = null;
   #point = null;
   #tripEventsList = null;
   #additionalOfferModel = null;
-
   #pointDestinations = null;
   #pointOffers = null;
   #formTypeSelect = FormType;
+  #handlePointUpdate = null;
 
-  init(point, pointDestinations, pointOffers) {
-    this.#point = point;
+  constructor({ pointDestinations, pointOffers, onPointUpdate }) {
+    this.#handlePointUpdate = onPointUpdate;
     this.#pointOffers = pointOffers;
     this.#pointDestinations = pointDestinations;
+  }
+
+  init(point) {
+    this.#point = point;
+
     this.#tripEventsList =
       pageTripEventsElement.querySelector('.trip-events__list');
+
     this.#additionalOfferModel = new AdditionalOfferModel();
     const prevPointElementComponent = this.#pointElementComponent;
     const prevPointEditElementComponent = this.#pointEditElementComponent;
@@ -32,21 +39,20 @@ export default class PointsPresenter {
       this.#point.offers
     );
 
-    const allOffers = this.#additionalOfferModel.getOffersByType(
-      this.#point.type
-    );
+    const allOffers = this.#additionalOfferModel.getOffersByType(point.type);
 
     this.#pointElementComponent = new TripListEventElement({
-      point,
+      point: this.#point,
       pointAdditionalOffers,
       onEditClick: this.#onEditClick,
+      onFavoriteClick: this.#handleFavoriteClick,
     });
 
     this.#pointEditElementComponent = new TripFormView({
       formType: this.#formTypeSelect.FORM_EDIT,
       destinations: this.#pointDestinations,
       pointOffers: this.#pointOffers,
-      point: point,
+      point: this.#point,
       allOffers: allOffers,
       onEditClick: this.#onFormClick,
       onFormSubmit: this.#onFormSubmit,
@@ -79,7 +85,7 @@ export default class PointsPresenter {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       this.switchToEventPoint();
-      document.removeEventListener('keydown', this.escKeyDownHandler);
+      document.removeEventListener('keydown', this.#escKeyDownHandler);
     }
   };
 
@@ -96,6 +102,13 @@ export default class PointsPresenter {
   #onFormClick = () => {
     this.switchToEventPoint();
     document.removeEventListener('keydown', this.#escKeyDownHandler);
+  };
+
+  #handleFavoriteClick = () => {
+    this.#handlePointUpdate({
+      ...this.#point,
+      isFavorite: !this.#point.isFavorite,
+    });
   };
 
   switchToFormEdit() {

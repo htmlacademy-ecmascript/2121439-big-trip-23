@@ -1,12 +1,12 @@
 import { RenderPosition, render } from '../framework/render';
 import { generateFilters } from '../utils/point-time-filters';
-
+import { updatePoint } from '../utils/point-data';
 import TripInfoView from '../view/trip-info-view';
 import TripFilterView from '../view/trip-filter-view';
 import TripPointEmptyView from '../view/trip-point-empty-view';
 import TripFormSortView from '../view/trip-form-sort-view';
 import TripListView from '../view/trip-list-view';
-import PointsPresenter from './points-presenter';
+import PointPresenter from './point-presenter';
 
 //Header element
 const pageHeaderElement = document.querySelector('.page-header__container');
@@ -27,7 +27,8 @@ export default class ContentPresenter {
   #pointDestinations = [];
   #tripEventsList = null;
   #isPointEmpty = null;
-  #pointsPresenter = null;
+  #pointPresenter = null;
+  #pointsPresenter = new Map();
 
   constructor(pointsModel, additionalOfferModel, pointDestinationsModel) {
     this.#pointsModel = pointsModel;
@@ -58,16 +59,28 @@ export default class ContentPresenter {
     render(new TripListView(), pageTripEventsElement);
   }
 
+  #handlePointUpdate = (updatedPoint) => {
+    this.#points = updatePoint(this.#points, updatedPoint);
+    this.#pointsPresenter.get(updatedPoint.id).init(updatedPoint);
+  };
+
   #renderTripEventsItemView(point, pointDestinations, pointOffers) {
-    this.#pointsPresenter = new PointsPresenter().init(
-      point,
+    const pointPresenter = new PointPresenter({
       pointDestinations,
-      pointOffers
-    );
+      pointOffers,
+      onPointUpdate: this.#handlePointUpdate,
+    });
+    pointPresenter.init(point);
+    this.#pointsPresenter.set(point.id, pointPresenter);
   }
 
   #renderTripPointEmptyView() {
     render(new TripPointEmptyView(), pageTripEventsElement);
+  }
+
+  #clearPoint() {
+    this.#pointsPresenter.forEach((presenter) => presenter.destroy());
+    this.#pointsPresenter.clear();
   }
 
   init() {
