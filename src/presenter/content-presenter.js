@@ -27,7 +27,6 @@ export default class ContentPresenter {
   #pointDestinations = [];
   #tripEventsList = null;
   #isPointEmpty = null;
-  #pointPresenter = null;
   #pointsPresenter = new Map();
 
   constructor(pointsModel, additionalOfferModel, pointDestinationsModel) {
@@ -59,16 +58,12 @@ export default class ContentPresenter {
     render(new TripListView(), pageTripEventsElement);
   }
 
-  #handlePointUpdate = (updatedPoint) => {
-    this.#points = updatePoint(this.#points, updatedPoint);
-    this.#pointsPresenter.get(updatedPoint.id).init(updatedPoint);
-  };
-
   #renderTripEventsItemView(point, pointDestinations, pointOffers) {
     const pointPresenter = new PointPresenter({
       pointDestinations,
       pointOffers,
       onPointUpdate: this.#handlePointUpdate,
+      onModeChange: this.#handleModeChange,
     });
     pointPresenter.init(point);
     this.#pointsPresenter.set(point.id, pointPresenter);
@@ -77,6 +72,15 @@ export default class ContentPresenter {
   #renderTripPointEmptyView() {
     render(new TripPointEmptyView(), pageTripEventsElement);
   }
+
+  #handlePointUpdate = (updatedPoint) => {
+    this.#points = updatePoint(this.#points, updatedPoint);
+    this.#pointsPresenter.get(updatedPoint.id).init(updatedPoint);
+  };
+
+  #handleModeChange = () => {
+    this.#pointsPresenter.forEach((presenter) => presenter.resetView());
+  };
 
   #clearPoint() {
     this.#pointsPresenter.forEach((presenter) => presenter.destroy());

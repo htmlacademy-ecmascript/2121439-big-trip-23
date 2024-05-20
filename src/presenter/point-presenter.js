@@ -3,7 +3,7 @@ import { render, replace, remove } from '../framework/render';
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
 import TripFormView from '../view/trip-form-view';
 import AdditionalOfferModel from '../model/additional-offer-model';
-import { FormType } from '../const';
+import { FormType, Mode } from '../const';
 
 const pageTripEventsElement = document.querySelector('.trip-events');
 
@@ -15,13 +15,16 @@ export default class PointPresenter {
   #additionalOfferModel = null;
   #pointDestinations = null;
   #pointOffers = null;
-  #formTypeSelect = FormType;
+  #formTypeSelect = FormType.FORM_EDIT;
+  #mode = Mode.DEFAULT;
   #handlePointUpdate = null;
+  #handleModeChange = null;
 
-  constructor({ pointDestinations, pointOffers, onPointUpdate }) {
+  constructor({ pointDestinations, pointOffers, onPointUpdate, onModeChange }) {
     this.#handlePointUpdate = onPointUpdate;
     this.#pointOffers = pointOffers;
     this.#pointDestinations = pointDestinations;
+    this.#handleModeChange = onModeChange;
   }
 
   init(point) {
@@ -49,7 +52,7 @@ export default class PointPresenter {
     });
 
     this.#pointEditElementComponent = new TripFormView({
-      formType: this.#formTypeSelect.FORM_EDIT,
+      formType: this.#formTypeSelect,
       destinations: this.#pointDestinations,
       pointOffers: this.#pointOffers,
       point: this.#point,
@@ -65,10 +68,12 @@ export default class PointPresenter {
       render(this.#pointElementComponent, this.#tripEventsList);
       return;
     }
-    if (this.#tripEventsList.contains(prevPointElementComponent.element)) {
+
+    if (this.#mode === Mode.DEFAULT) {
       replace(this.#pointElementComponent, prevPointElementComponent);
     }
-    if (this.#tripEventsList.contains(prevPointEditElementComponent.element)) {
+
+    if (this.#mode === Mode.EDITING) {
       replace(this.#pointEditElementComponent, prevPointEditElementComponent);
     }
 
@@ -76,31 +81,27 @@ export default class PointPresenter {
     remove(this.#pointEditElementComponent);
   }
 
-  destroy() {
-    remove(this.#pointElementComponent);
-    remove(this.#pointEditElementComponent);
-  }
-
   #escKeyDownHandler = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      this.switchToEventPoint();
+      this.#switchToEventPoint();
       document.removeEventListener('keydown', this.#escKeyDownHandler);
     }
   };
 
   #onFormSubmit = () => {
-    this.switchToEventPoint();
+    this.#switchToEventPoint();
+    this.#handlePointUpdate(this.#point);
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
   #onEditClick = () => {
-    this.switchToFormEdit();
+    this.#switchToFormEdit();
     document.addEventListener('keydown', this.#escKeyDownHandler);
   };
 
   #onFormClick = () => {
-    this.switchToEventPoint();
+    this.#switchToEventPoint();
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
@@ -111,11 +112,26 @@ export default class PointPresenter {
     });
   };
 
-  switchToFormEdit() {
+  #switchToFormEdit() {
     replace(this.#pointEditElementComponent, this.#pointElementComponent);
+    this.#handleModeChange();
+    this.#mode = Mode.EDITING;
   }
 
-  switchToEventPoint() {
+  #switchToEventPoint() {
     replace(this.#pointElementComponent, this.#pointEditElementComponent);
+    this.#mode = Mode.DEFAULT;
+  }
+
+  destroy() {
+    remove(this.#pointElementComponent);
+    remove(this.#pointEditElementComponent);
+  }
+
+  resetView() {
+    if (this.#mode !== Mode.DEFAULT) {
+      this.#switchToEventPoint();
+      document.removeEventListener('keydown', this.#escKeyDownHandler);
+    }
   }
 }

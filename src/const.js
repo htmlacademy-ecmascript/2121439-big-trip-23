@@ -1,42 +1,3 @@
-export const TYPE_EVENTS = [
-  {
-    value: 'Taxi',
-    img: 'img/icons/taxi.png',
-  },
-  {
-    value: 'Bus',
-    img: 'img/icons/bus.png',
-  },
-  {
-    value: 'Train',
-    img: 'img/icons/train.png',
-  },
-  {
-    value: 'Ship',
-    img: 'img/icons/ship.png',
-  },
-  {
-    value: 'Drive',
-    img: 'img/icons/drive.png',
-  },
-  {
-    value: 'Flight',
-    img: 'img/icons/flight.png',
-  },
-  {
-    value: 'Check-in',
-    img: 'img/icons/check-in.png',
-  },
-  {
-    value: 'Sightseeing',
-    img: 'img/icons/sightseeing.png',
-  },
-  {
-    value: 'Restaurant',
-    img: 'img/icons/restaurant.png',
-  },
-];
-
 export const SORT_VALUES = [
   {
     value: 'Day',
@@ -63,6 +24,11 @@ export const SORT_VALUES = [
 export const FormType = {
   FORM_EDIT: 'form-edit',
   FORM_ADD: 'form-add',
+};
+
+export const Mode = {
+  DEFAULT: 'DEFAULT',
+  EDITING: 'EDITING',
 };
 
 export const FILTER_VALUES = ['Everything', 'Future', 'Present', 'Past'];
