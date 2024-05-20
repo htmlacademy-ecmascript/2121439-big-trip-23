@@ -71,8 +71,9 @@ export default class TripFormView extends AbstractView {
     this.#allOffers = allOffers;
     this.#handleClickEdit = onEditClick;
     this.#handleFormSubmit = onFormSubmit;
-    this.#rollupButton = this.element.querySelector('.event__rollup-btn');
-    this.#rollupButton.addEventListener('click', this.#onClickEdit);
+    this.#rollupButton = this.element
+      .querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#onClickEdit);
     this.element
       .querySelector('form')
       .addEventListener('submit', this.#onFormSubmit);

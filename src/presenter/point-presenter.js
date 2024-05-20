@@ -77,8 +77,8 @@ export default class PointPresenter {
       replace(this.#pointEditElementComponent, prevPointEditElementComponent);
     }
 
-    remove(this.#pointEditElementComponent);
-    remove(this.#pointEditElementComponent);
+    remove(prevPointElementComponent);
+    remove(prevPointEditElementComponent);
   }
 
   #escKeyDownHandler = (evt) => {
@@ -87,6 +87,13 @@ export default class PointPresenter {
       this.#switchToEventPoint();
       document.removeEventListener('keydown', this.#escKeyDownHandler);
     }
+  };
+
+  #handleFavoriteClick = () => {
+    this.#handlePointUpdate({
+      ...this.#point,
+      isFavorite: !this.#point.isFavorite,
+    });
   };
 
   #onFormSubmit = () => {
@@ -103,13 +110,6 @@ export default class PointPresenter {
   #onFormClick = () => {
     this.#switchToEventPoint();
     document.removeEventListener('keydown', this.#escKeyDownHandler);
-  };
-
-  #handleFavoriteClick = () => {
-    this.#handlePointUpdate({
-      ...this.#point,
-      isFavorite: !this.#point.isFavorite,
-    });
   };
 
   #switchToFormEdit() {
