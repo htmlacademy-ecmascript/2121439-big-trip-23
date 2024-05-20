@@ -57,15 +57,28 @@ export default class TripListEventElement extends AbstractView {
   #pointAdditionalOffers = [];
   #rollupButton = null;
   #handleClick = null;
+  #handleClickFavorite = null;
+  #buttonFavorite = null;
 
-  constructor({ point, pointAdditionalOffers, onEditClick }) {
+  constructor({ point, pointAdditionalOffers, onEditClick, onFavoriteClick }) {
     super();
     this.#point = point;
     this.#pointAdditionalOffers = pointAdditionalOffers;
     this.#handleClick = onEditClick;
-    this.#rollupButton = this.element.querySelector('.event__rollup-btn');
-    this.#rollupButton.addEventListener('click', this.#onClick);
+    this.#handleClickFavorite = onFavoriteClick;
+
+    this.#rollupButton = this.element
+      .querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#onClick);
+    this.#buttonFavorite = this.element
+      .querySelector('.event__favorite-btn')
+      .addEventListener('click', this.#onClickFavoriteHandler);
   }
+
+  #onClickFavoriteHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleClickFavorite();
+  };
 
   #onClick = (evt) => {
     evt.preventDefault();
