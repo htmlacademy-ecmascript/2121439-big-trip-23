@@ -108,6 +108,7 @@ export default class ContentPresenter {
     );
     this.#pointsPresenter.get(updatedPoint.id).init(updatedPoint);
   };
+
   #handleModeChange = () => {
     this.#pointsPresenter.forEach((presenter) => presenter.resetView());
   };
