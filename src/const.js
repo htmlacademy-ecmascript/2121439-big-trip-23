@@ -23,7 +23,16 @@ export const SortType = {
   OFFERS: 'offers',
 };
 
-export const MILLISECONDS = 60000;
-export const MINUTES = 60;
-export const DATE_NOW = new Date().toISOString();
-export const DAYS_TIME = 24;
+export const FormatTime = {
+  START_AND_END_TIMES: 'hh:mm',
+  DATE_FROM: 'MMM DD',
+  DATE_FORM_EDIT: 'YY/MM/DD HH:mm',
+  MINUTES: 'mm[M]',
+  DAY: 'HH[H] mm[m]',
+  DAYS: 'DD[D] HH[H] mm[M]',
+};
+
+export const Milliseconds = {
+  HOUR: 3600000,
+  DAY: 86400000,
+};
