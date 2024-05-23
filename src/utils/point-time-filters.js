@@ -1,19 +1,25 @@
-import { DATE_NOW, FilterType } from '../const';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
+
+import { FilterType } from '../const';
 
 function filterPointEverything(points) {
   return points;
 }
 
 function filterPointToFuture(points) {
-  return points.filter((point) => point.dateFrom > DATE_NOW);
+  return points.filter((point) => dayjs().isBefore(point.dateFrom));
 }
 
 function filterPointToPresent(points) {
-  return points.filter((point) => point.dateFrom <= DATE_NOW || point.dateFrom <= point.dateTo);
+  return points.filter(
+    (point) => dayjs().isAfter(point.dateFrom) && dayjs().isBefore(point.dateTo)
+  );
 }
 
 function filterPointToPast(points) {
-  return points.filter((point) => point.dateTo < DATE_NOW);
+  return points.filter((point) => dayjs().isAfter(point.dateTo));
 }
 
 const filters = {

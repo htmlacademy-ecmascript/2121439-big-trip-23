@@ -1,29 +1,43 @@
 import AbstractView from '../framework/view/abstract-view';
+import { SortType } from '../const';
 
-import { SORT_VALUES } from '../const';
-
-const createSortValuesTemplate = () =>
-  SORT_VALUES.map(
-    (
-      item
-    ) => `<div class="trip-sort__item  trip-sort__item--${item.value.toLocaleLowerCase()}">
-                <input id="sort-${item.value.toLocaleLowerCase()}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" item.value="sort-${item.value.toLocaleLowerCase()}"
-                ${item.isChecked ? 'checked' : ''}
-                ${item.isDisabled ? 'disabled' : ''}>
-                <label class="trip-sort__btn" for="sort-${item.value.toLocaleLowerCase()}">${
-  item.value
-}</label>
+const createSortValuesTemplate = ({ currentSortType }) => Object.values(SortType).map(
+  (item) => `<div class="trip-sort__item  trip-sort__item--${item}">
+                <input id="sort-${item}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${item}"
+                data-sort-type=${item} ${
+  item === currentSortType ? 'checked' : ''
+} ${item === SortType.EVENT || item === SortType.OFFERS ? 'disabled' : ''}>
+                <label class="trip-sort__btn" for="sort-${item}">${item}</label>
             </div>`
-  );
-
-const tripEventsBoardViewTemplate = () => `
+);
+const tripEventsBoardViewTemplate = ({ currentSortType }) => `
     <form class="trip-events__trip-sort trip-sort" action="#" method="get">
-      ${createSortValuesTemplate().join('')}
+      ${createSortValuesTemplate({ currentSortType }).join('')}
     </form>
 `;
 
 export default class TripFormSortView extends AbstractView {
-  get template() {
-    return tripEventsBoardViewTemplate();
+  #handleSortTypeChange = null;
+  #activeSortType = null;
+  constructor({ currentSortType, onSortTypeChange }) {
+    super();
+    this.#activeSortType = currentSortType;
+    this.#handleSortTypeChange = onSortTypeChange;
+    this.element.addEventListener('change', this.#sortTypeChangeHandler);
   }
+
+  get template() {
+    return tripEventsBoardViewTemplate({
+      currentSortType: this.#activeSortType,
+    });
+  }
+
+  #sortTypeChangeHandler = (evt) => {
+    if (evt.target.tagName !== 'INPUT') {
+      return;
+    }
+
+    evt.preventDefault();
+    this.#handleSortTypeChange(evt.target.dataset.sortType);
+  };
 }

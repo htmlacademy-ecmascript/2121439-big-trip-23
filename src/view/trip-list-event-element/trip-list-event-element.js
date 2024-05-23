@@ -1,7 +1,11 @@
 import AbstractView from '../../framework/view/abstract-view';
 import { createRollupButton } from './create-rollup-button';
 import { createEventOffers } from './create-event-offers';
-import { pointTimeFormatter } from '../../utils/point-time-formatter';
+import { FormatTime } from '../../const';
+import {
+  getCorrectDateFormat,
+  dateConversion,
+} from '../../utils/point-time-formatter';
 
 const favoriteClassActive = (isFavorite) =>
   `event__favorite-btn ${isFavorite ? 'event__favorite-btn--active' : ''}`;
@@ -9,31 +13,30 @@ const favoriteClassActive = (isFavorite) =>
 const createTripListEventTemplate = (point, pointAddOffers) => {
   const { dateFrom, dateTo, type, basePrice, isFavorite } = point;
 
-  const {
-    pointDateTime,
-    pointDateFromTime,
-    pointDateStartTime,
-    pointDateEndTime,
-    startTime,
-    endTime,
-    timeCalculation,
-  } = pointTimeFormatter(dateFrom, dateTo);
-
   return `
   <li class="trip-events__item">
   <div class="event">
-      <time class="event__date" datetime="${pointDateTime}">${pointDateFromTime}</time>
+      <time class="event__date" datetime="${dateFrom}">${dateConversion(
+  dateFrom,
+  FormatTime.DATE_FROM
+)}</time>
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
       </div>
       <h3 class="event__title">${type} Amsterdam</h3>
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="${pointDateStartTime}">${startTime}</time>
+          <time class="event__start-time" datetime="${dateFrom}">${dateConversion(
+  dateFrom,
+  FormatTime.START_AND_END_TIMES
+)}</time>
           &mdash;
-          <time class="event__end-time" datetime="${pointDateEndTime}">${endTime}</time>
+          <time class="event__end-time" datetime="${dateTo}">${dateConversion(
+  dateTo,
+  FormatTime.START_AND_END_TIMES
+)}</time>
         </p>
-        <p class="event__duration">${timeCalculation}</p>
+        <p class="event__duration">${getCorrectDateFormat(dateFrom, dateTo)}</p>
       </div>
       <p class="event__price">
         &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
