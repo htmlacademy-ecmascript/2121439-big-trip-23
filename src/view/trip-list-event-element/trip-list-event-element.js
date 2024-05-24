@@ -1,4 +1,4 @@
-import AbstractView from '../../framework/view/abstract-view';
+import AbstractStatefulView from '../../framework/view/abstract-view';
 import { createRollupButton } from './create-rollup-button';
 import { createEventOffers } from './create-event-offers';
 import { FormatTime } from '../../const';
@@ -55,7 +55,7 @@ const createTripListEventTemplate = (point, pointAddOffers) => {
     </li>`;
 };
 
-export default class TripListEventElement extends AbstractView {
+export default class TripListEventElement extends AbstractStatefulView {
   #point = [];
   #pointAdditionalOffers = [];
   #rollupButton = null;

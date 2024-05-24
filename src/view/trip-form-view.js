@@ -1,7 +1,7 @@
-import AbstractView from '../framework/view/abstract-view';
 import { FormType } from '../const';
 import { createFormHeaderTemplate } from './form-elements/form-header/form-header';
 import { createFormEventDetailsTemplate } from './form-elements/form-event-details/form-event-details';
+import AbstractStatefulView from '../framework/view/abstract-stateful-view';
 
 const renderByTypeFormElement = (
   formTypeSelect,
@@ -44,7 +44,7 @@ const createTripFormTemplate = (
     point,
     allOffers
   )}</li>`;
-export default class TripFormView extends AbstractView {
+export default class TripFormView extends AbstractStatefulView {
   #formTypeSelect = null;
   #pointDestinations = null;
   #pointOffers = null;
