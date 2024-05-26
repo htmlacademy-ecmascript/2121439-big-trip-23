@@ -164,6 +164,7 @@ export default class TripFormView extends AbstractStatefulView {
 
   static parseStateToPoint(state) {
     const point = { ...state };
+
     return point;
   }
 }

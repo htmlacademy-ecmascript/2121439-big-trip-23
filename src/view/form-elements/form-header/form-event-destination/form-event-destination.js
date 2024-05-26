@@ -6,15 +6,12 @@ const createNameCitiesDestination = () =>
   );
 
 export const createFormEventDestinationTemplate = (
-  point,
-  pointDestinations
+  point
 ) => `<div class="event__field-group  event__field-group--destination">
   <label class="event__label  event__type-output" for="event-destination-1">
     ${point.type}
   </label>
-  <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${
-  pointDestinations[2].name
-}" list="destination-list-1">
+  <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Amsterdam" list="destination-list-1">
   <datalist id="destination-list-1">
   ${createNameCitiesDestination().join('')}
   </datalist>
