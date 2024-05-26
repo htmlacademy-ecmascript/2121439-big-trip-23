@@ -1,5 +1,6 @@
 const createButtonsFormOfferTemplate = (allOffers, point) => {
-  const isChecked = (offer) => point.offers.find((pointOffer) => pointOffer === offer);
+  const isChecked = (offer) =>
+    point.offers.find((pointOffer) => pointOffer === offer);
 
   return allOffers.offers.map(
     (item) => ` <div class="event__offer-selector">

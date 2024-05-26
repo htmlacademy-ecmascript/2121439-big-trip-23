@@ -1,19 +1,23 @@
+import AbstractStatefulView from '../framework/view/abstract-stateful-view';
 import { FormType } from '../const';
 import { createFormHeaderTemplate } from './form-elements/form-header/form-header';
 import { createFormEventDetailsTemplate } from './form-elements/form-event-details/form-event-details';
-import AbstractStatefulView from '../framework/view/abstract-stateful-view';
 
 const renderByTypeFormElement = (
   formTypeSelect,
   pointDestinations,
   pointOffers,
-  point,
-  allOffers
+  allOffers,
+  statePoint
 ) => {
   if (formTypeSelect === FormType.FORM_EDIT) {
     return `<form class="event event--edit" action="#" method="post">
-    ${createFormHeaderTemplate(formTypeSelect, pointOffers, point)}
-    ${createFormEventDetailsTemplate(pointDestinations, allOffers, point)}
+    ${createFormHeaderTemplate(formTypeSelect, pointOffers, statePoint.point)}
+    ${createFormEventDetailsTemplate(
+    pointDestinations,
+    statePoint.pointOffers,
+    statePoint.point
+  )}
     </form>
 `;
   } else if (formTypeSelect === FormType.FORM_ADD) {
@@ -22,8 +26,7 @@ const renderByTypeFormElement = (
     ${createFormEventDetailsTemplate(
     formTypeSelect,
     pointDestinations,
-    allOffers,
-    point
+    allOffers
   )}
     </form>
 `;
@@ -34,15 +37,15 @@ const createTripFormTemplate = (
   formTypeSelect,
   pointDestinations,
   pointOffers,
-  point,
-  allOffers
+  allOffers,
+  statePoint
 ) =>
   `<li class="trip-events__item">${renderByTypeFormElement(
     formTypeSelect,
     pointDestinations,
     pointOffers,
-    point,
-    allOffers
+    allOffers,
+    statePoint
   )}</li>`;
 export default class TripFormView extends AbstractStatefulView {
   #formTypeSelect = null;
@@ -71,12 +74,15 @@ export default class TripFormView extends AbstractStatefulView {
     this.#allOffers = allOffers;
     this.#handleClickEdit = onEditClick;
     this.#handleFormSubmit = onFormSubmit;
-    this.#rollupButton = this.element
-      .querySelector('.event__rollup-btn')
-      .addEventListener('click', this.#onClickEdit);
-    this.element
-      .querySelector('form')
-      .addEventListener('submit', this.#onFormSubmit);
+
+    this._setState(
+      TripFormView.parsePointToState({
+        point: { ...point },
+        pointDestinations: { ...pointDestinations },
+        pointOffers: { ...allOffers },
+      })
+    );
+    this._restoreHandlers();
   }
 
   get template() {
@@ -84,18 +90,61 @@ export default class TripFormView extends AbstractStatefulView {
       this.#formTypeSelect,
       this.#pointDestinations,
       this.#pointOffers,
-      this.#point,
-      this.#allOffers
+      this.#allOffers,
+      this._state
     );
+  }
+
+  _restoreHandlers() {
+    this.#rollupButton = this.element
+      .querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#onClickEdit);
+    this.element
+      .querySelector('form')
+      .addEventListener('submit', this.#onFormSubmit);
+    this.element
+      .querySelector('.event__type-group')
+      .addEventListener('change', this.#eventTypeHandler);
   }
 
   #onClickEdit = (evt) => {
     evt.preventDefault();
-    this.#handleClickEdit();
+    this.#handleClickEdit(TripFormView.parseStateToPoint(this._state));
   };
 
   #onFormSubmit = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit();
+    this.#handleFormSubmit(TripFormView.parseStateToPoint(this._state));
   };
+
+  #eventTypeHandler = (evt) => {
+    evt.preventDefault();
+    const newType = evt.target.dataset.eventType;
+    const offersType = this.#pointOffers.find(
+      (offer) => offer.type === newType
+    );
+
+    if (this.#point.type === newType) {
+      return;
+    }
+
+    this.updateElement({
+      point: {
+        ...this._state.point,
+        type: newType,
+        offers: [...offersType.offers],
+      },
+      pointDestinations: [...this.#pointDestinations],
+      pointOffers: { ...offersType },
+    });
+  };
+
+  static parsePointToState(point, pointDestinations, pointOffer) {
+    return { ...point, ...pointDestinations, ...pointOffer };
+  }
+
+  static parseStateToPoint(state) {
+    const point = { ...state };
+    return point;
+  }
 }
