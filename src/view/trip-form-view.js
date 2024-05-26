@@ -12,9 +12,9 @@ const renderByTypeFormElement = (
 ) => {
   if (formTypeSelect === FormType.FORM_EDIT) {
     return `<form class="event event--edit" action="#" method="post">
-    ${createFormHeaderTemplate(formTypeSelect, pointOffers, statePoint.point)}
+    ${createFormHeaderTemplate(formTypeSelect, pointOffers, statePoint)}
     ${createFormEventDetailsTemplate(
-    pointDestinations,
+    statePoint.pointDestinations,
     statePoint.pointOffers,
     statePoint.point
   )}
@@ -105,6 +105,9 @@ export default class TripFormView extends AbstractStatefulView {
     this.element
       .querySelector('.event__type-group')
       .addEventListener('change', this.#eventTypeHandler);
+    this.element
+      .querySelector('#event-destination-1')
+      .addEventListener('change', this.#eventDestinationsHandler);
   }
 
   #onClickEdit = (evt) => {
@@ -136,6 +139,22 @@ export default class TripFormView extends AbstractStatefulView {
       },
       pointDestinations: [...this.#pointDestinations],
       pointOffers: { ...offersType },
+    });
+  };
+
+  #eventDestinationsHandler = (evt) => {
+    evt.preventDefault();
+    const newValueOption = evt.target.value;
+    const destination = this.#pointDestinations.find((item) =>
+      item.name.toLowerCase().includes(newValueOption.toLowerCase())
+    );
+
+    this.updateElement({
+      point: {
+        ...this._state.point,
+        destination: destination.id,
+      },
+      pointDestinations: [destination],
     });
   };
 
