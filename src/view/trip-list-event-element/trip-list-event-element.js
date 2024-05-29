@@ -6,12 +6,29 @@ import {
   getCorrectDateFormat,
   dateConversion,
 } from '../../utils/point-time-formatter';
+let pointDestinationTitle = '';
 
 const favoriteClassActive = (isFavorite) =>
   `event__favorite-btn ${isFavorite ? 'event__favorite-btn--active' : ''}`;
 
-const createTripListEventTemplate = (point, pointAddOffers) => {
-  const { dateFrom, dateTo, type, basePrice, isFavorite } = point;
+const getPointDestinationTitle = ({ destinations, pointDestinationId }) => {
+  destinations.find((item) => {
+    if (item.id === pointDestinationId) {
+      pointDestinationTitle = item.name;
+    }
+  });
+};
+
+const createTripListEventTemplate = (
+  point,
+  pointAddOffers,
+  pointDestinations
+) => {
+  const { dateFrom, dateTo, type, basePrice, isFavorite, destination } = point;
+  getPointDestinationTitle({
+    destinations: pointDestinations,
+    pointDestinationId: destination,
+  });
 
   return `
   <li class="trip-events__item">
@@ -23,7 +40,7 @@ const createTripListEventTemplate = (point, pointAddOffers) => {
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
       </div>
-      <h3 class="event__title">${type} Amsterdam</h3>
+      <h3 class="event__title">${type} ${pointDestinationTitle}</h3>
       <div class="event__schedule">
         <p class="event__time">
           <time class="event__start-time" datetime="${dateFrom}">${dateConversion(
@@ -58,15 +75,23 @@ const createTripListEventTemplate = (point, pointAddOffers) => {
 export default class TripListEventElement extends AbstractStatefulView {
   #point = [];
   #pointAdditionalOffers = [];
+  #pointDestinations = [];
   #rollupButton = null;
   #handleClick = null;
   #handleClickFavorite = null;
   #buttonFavorite = null;
 
-  constructor({ point, pointAdditionalOffers, onEditClick, onFavoriteClick }) {
+  constructor({
+    point,
+    pointAdditionalOffers,
+    pointDestinations,
+    onEditClick,
+    onFavoriteClick,
+  }) {
     super();
     this.#point = point;
     this.#pointAdditionalOffers = pointAdditionalOffers;
+    this.#pointDestinations = pointDestinations;
     this.#handleClick = onEditClick;
     this.#handleClickFavorite = onFavoriteClick;
 
@@ -91,7 +116,8 @@ export default class TripListEventElement extends AbstractStatefulView {
   get template() {
     return createTripListEventTemplate(
       this.#point,
-      this.#pointAdditionalOffers
+      this.#pointAdditionalOffers,
+      this.#pointDestinations
     );
   }
 }

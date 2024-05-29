@@ -47,6 +47,7 @@ export default class PointPresenter {
     this.#pointElementComponent = new TripListEventElement({
       point: this.#point,
       pointAdditionalOffers,
+      pointDestinations: this.#pointDestinations,
       onEditClick: this.#onEditClick,
       onFavoriteClick: this.#handleFavoriteClick,
     });
