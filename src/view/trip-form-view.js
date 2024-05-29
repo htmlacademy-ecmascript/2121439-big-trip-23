@@ -56,6 +56,7 @@ export default class TripFormView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #rollupButton = null;
   #allOffers = null;
+  #initialState = null;
 
   constructor({
     formType: formTypeSelect,
@@ -72,6 +73,7 @@ export default class TripFormView extends AbstractStatefulView {
     this.#pointOffers = [...pointOffers];
     this.#point = point;
     this.#allOffers = allOffers;
+    this.#initialState = point;
     this.#handleClickEdit = onEditClick;
     this.#handleFormSubmit = onFormSubmit;
 
@@ -112,7 +114,8 @@ export default class TripFormView extends AbstractStatefulView {
 
   #onClickEdit = (evt) => {
     evt.preventDefault();
-    this.#handleClickEdit(TripFormView.parseStateToPoint(this._state));
+    this.#handleClickEdit();
+    TripFormView.parsePointToState({ point: { ...this.#point } });
   };
 
   #onFormSubmit = (evt) => {
@@ -126,10 +129,6 @@ export default class TripFormView extends AbstractStatefulView {
     const offersType = this.#pointOffers.find(
       (offer) => offer.type === newType
     );
-
-    if (this.#point.type === newType) {
-      return;
-    }
 
     this.updateElement({
       point: {
@@ -157,6 +156,19 @@ export default class TripFormView extends AbstractStatefulView {
       pointDestinations: [destination],
     });
   };
+
+  reset() {
+    const destination = this.#pointDestinations.find(
+      (item) => item.id === this.#initialState.destination
+    );
+    this.updateElement({
+      point: { ...this.#initialState },
+      typeOffers: this.#pointOffers.find(
+        (offer) => offer.type === this.#initialState.type
+      ),
+      pointDestinations: [destination],
+    });
+  }
 
   static parsePointToState(point, pointDestinations, pointOffer) {
     return { ...point, ...pointDestinations, ...pointOffer };
