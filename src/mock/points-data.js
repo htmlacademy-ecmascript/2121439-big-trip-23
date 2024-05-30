@@ -645,3 +645,15 @@ export const additionalPointOffers = [
     ],
   },
 ];
+
+export const nameCitiesDestination = [
+  'Oslo',
+  'Kioto',
+  'Sochi',
+  'Saint Petersburg',
+  'Venice',
+  'Amsterdam',
+  'Nagasaki',
+  'Madrid',
+  'Vien',
+];

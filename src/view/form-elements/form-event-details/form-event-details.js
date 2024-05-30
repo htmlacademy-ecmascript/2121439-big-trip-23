@@ -3,10 +3,10 @@ import { createFormDetailDestinationTemplate } from './form-details-destination'
 
 export const createFormEventDetailsTemplate = (
   pointDestinations,
-  allOffers,
+  pointOffers,
   point
 ) =>
   `<section class="event__details">
-    ${createFormButtonOffersTemplate(allOffers, point)}
+    ${createFormButtonOffersTemplate(pointOffers, point)}
     ${createFormDetailDestinationTemplate(pointDestinations, point)}
   </section>`;

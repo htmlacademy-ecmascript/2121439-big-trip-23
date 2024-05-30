@@ -15,12 +15,15 @@ const getRenderByFormType = (formType) =>
 export const createFormHeaderTemplate = (
   formTypeSelect,
   pointOffers,
-  point
+  statePoint
 ) => `<header class="event__header">
-  ${createFormTypeEventTemplate(point, pointOffers)}
-  ${createFormEventDestinationTemplate(point)}
+  ${createFormTypeEventTemplate(pointOffers, statePoint.point)}
+  ${createFormEventDestinationTemplate(
+    statePoint.point,
+    statePoint.pointDestinations
+  )}
   ${createFormEventTimeTemplate()}
-  ${createFormEventPriceTemplate(point.basePrice)}
+  ${createFormEventPriceTemplate(statePoint.point)}
   ${createFormEventButtonSubmitTemplate()}
   ${createFormEventButtonDeleteTemplate(formTypeSelect)}
   ${getRenderByFormType()}
