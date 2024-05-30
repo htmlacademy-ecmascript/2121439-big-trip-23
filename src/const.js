@@ -30,6 +30,7 @@ export const FormatTime = {
   MINUTES: 'mm[M]',
   DAY: 'HH[H] mm[m]',
   DAYS: 'DD[D] HH[H] mm[M]',
+  DATE_PICKER: 'd/m/y H:i',
 };
 
 export const Milliseconds = {
