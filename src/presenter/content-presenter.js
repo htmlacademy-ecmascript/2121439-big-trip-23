@@ -91,7 +91,7 @@ export default class ContentPresenter {
     this.#activeSortButton = sortType;
     this.#clearPoint();
     this.#points = sortPoints(
-      this.#pointsModel.pointData,
+      this.#pointsModel.points,
       this.#activeSortButton
     ).map((point) => {
       this.#renderTripEventsItemView(point);
@@ -101,7 +101,7 @@ export default class ContentPresenter {
   #handlePointUpdate = (updatedPoint) => {
     this.#points = updatePoint(
       (this.#points = sortPoints(
-        this.#pointsModel.pointData,
+        this.#pointsModel.points,
         this.#activeSortButton
       )),
       updatedPoint
@@ -118,8 +118,12 @@ export default class ContentPresenter {
     this.#pointsPresenter.clear();
   }
 
+  get points() {
+    return this.#pointsModel.points;
+  }
+
   init() {
-    this.#points = [...this.#pointsModel.pointData];
+    this.#points = [...this.#pointsModel.points];
     this.#pointOffers = [...this.#additionalOfferModel.additionalOffers];
     this.#pointDestinations = [
       ...this.#pointDestinationsModel.pointDestinations,
