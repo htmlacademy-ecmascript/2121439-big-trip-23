@@ -1,5 +1,8 @@
 import AbstractStatefulView from '../framework/view/abstract-stateful-view';
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 import { FormType } from '../const';
+import { FormatTime } from '../const';
 import { createFormHeaderTemplate } from './form-elements/form-header/form-header';
 import { createFormEventDetailsTemplate } from './form-elements/form-event-details/form-event-details';
 
@@ -57,6 +60,8 @@ export default class TripFormView extends AbstractStatefulView {
   #rollupButton = null;
   #allOffers = null;
   #initialState = null;
+  #dateStartPicker = null;
+  #dateEndPicker = null;
 
   constructor({
     formType: formTypeSelect,
@@ -84,6 +89,7 @@ export default class TripFormView extends AbstractStatefulView {
         pointOffers: { ...allOffers },
       })
     );
+
     this._restoreHandlers();
   }
 
@@ -110,6 +116,7 @@ export default class TripFormView extends AbstractStatefulView {
     this.element
       .querySelector('#event-destination-1')
       .addEventListener('change', this.#eventDestinationsHandler);
+    this.#setDatePicker();
   }
 
   #onClickEdit = (evt) => {
@@ -156,6 +163,57 @@ export default class TripFormView extends AbstractStatefulView {
       pointDestinations: [destination],
     });
   };
+
+  removeElement() {
+    super.removeElement();
+
+    if (this.#dateStartPicker) {
+      this.#dateStartPicker.destroy();
+      this.#dateStartPicker = null;
+    }
+
+    if (this.#dateEndPicker) {
+      this.#dateEndPicker.destroy();
+      this.#dateEndPicker = null;
+    }
+  }
+
+  #setDatePicker = () => {
+    const startTime = this.element.querySelector('#event-start-time-1');
+    const endTime = this.element.querySelector('#event-end-time-1');
+    const datePickerOptions = {
+      enableTime: true,
+      time24hr: true,
+      dateFormat: FormatTime.DATE_PICKER,
+    };
+
+    this.#dateStartPicker = flatpickr(startTime, {
+      ...datePickerOptions,
+      maxDate: this._state.point.dateTo,
+      onChange: this.#changeDateHandler('dateFrom'),
+    });
+
+    this.#dateEndPicker = flatpickr(endTime, {
+      ...datePickerOptions,
+      // minDate: this._state.point.dateFrom,
+      minDate: this._state.point.dateFrom,
+      onChange: this.#changeDateHandler('dateTo'),
+    });
+  };
+
+  #changeDateHandler =
+    (date) =>
+      ([userDate]) => {
+        this._setState({
+          [date]: userDate,
+        });
+
+        if (date === 'dateFrom') {
+          this.#dateEndPicker.set('minDate', userDate);
+        } else if (date === 'dateTo') {
+          this.#dateStartPicker.set('maxDate', userDate);
+        }
+      };
 
   reset() {
     const destination = this.#pointDestinations.find(
