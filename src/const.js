@@ -37,3 +37,21 @@ export const Milliseconds = {
   HOUR: 3600000,
   DAY: 86400000,
 };
+
+export const UserAction = {
+  UPDATE_POINT: 'UPDATE_POINT',
+  ADD_POINT: 'ADD_POINT',
+  DELETE_POINT: 'DELETE_POINT',
+};
+
+/**
+ * PATCH  - Самые маленькие изменения (изменить только один тип данных)
+ * MINOR - Средние изменения (изменить несколько типов данных)
+ * MAJOR - Самые большие изменения (изменить все данные)
+ */
+
+export const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR',
+};

@@ -90,20 +90,16 @@ export default class ContentPresenter {
     }
     this.#activeSortButton = sortType;
     this.#clearPoint();
-    this.#points = sortPoints(
-      this.#pointsModel.points,
-      this.#activeSortButton
-    ).map((point) => {
-      this.#renderTripEventsItemView(point);
-    });
+    this.#points = sortPoints(this.points, this.#activeSortButton).map(
+      (point) => {
+        this.#renderTripEventsItemView(point);
+      }
+    );
   };
 
   #handlePointUpdate = (updatedPoint) => {
     this.#points = updatePoint(
-      (this.#points = sortPoints(
-        this.#pointsModel.points,
-        this.#activeSortButton
-      )),
+      (this.#points = sortPoints(this.points, this.#activeSortButton)),
       updatedPoint
     );
     this.#pointsPresenter.get(updatedPoint.id).init(updatedPoint);
@@ -123,7 +119,7 @@ export default class ContentPresenter {
   }
 
   init() {
-    this.#points = [...this.#pointsModel.points];
+    this.#points = [...this.points];
     this.#pointOffers = [...this.#additionalOfferModel.additionalOffers];
     this.#pointDestinations = [
       ...this.#pointDestinationsModel.pointDestinations,
