@@ -3,6 +3,9 @@ import { pointsData } from '../mock/points-data';
 
 export default class PointsModel extends Observable {
   #points = [...pointsData];
+  constructor() {
+    super();
+  }
 
   get points() {
     return this.#points;
@@ -40,7 +43,7 @@ export default class PointsModel extends Observable {
 
     this.#points = [
       ...this.#points.slice(0, index),
-      updatePoint,
+
       ...this.#points.slice(index + 1),
     ];
 

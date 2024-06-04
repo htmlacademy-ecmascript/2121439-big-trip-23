@@ -62,6 +62,7 @@ export default class TripFormView extends AbstractStatefulView {
   #initialState = null;
   #dateStartPicker = null;
   #dateEndPicker = null;
+  #handleDeleteClick = null;
 
   constructor({
     formType: formTypeSelect,
@@ -71,6 +72,7 @@ export default class TripFormView extends AbstractStatefulView {
     onEditClick: onEditClick,
     onFormSubmit: onFormSubmit,
     allOffers: allOffers,
+    onDeleteClick: onDeleteClick,
   }) {
     super();
     this.#formTypeSelect = formTypeSelect;
@@ -81,6 +83,7 @@ export default class TripFormView extends AbstractStatefulView {
     this.#initialState = point;
     this.#handleClickEdit = onEditClick;
     this.#handleFormSubmit = onFormSubmit;
+    this.#handleDeleteClick = onDeleteClick;
 
     this._setState(
       TripFormView.parsePointToState({
@@ -116,6 +119,15 @@ export default class TripFormView extends AbstractStatefulView {
     this.element
       .querySelector('#event-destination-1')
       .addEventListener('change', this.#eventDestinationsHandler);
+    this.element
+      .querySelector('.event__reset-btn')
+      .addEventListener('click', this.#onDeleteClick);
+    this.element
+      .querySelector('#event-price-1')
+      .addEventListener('change', this.#eventPriceHandler);
+    this.element
+      .querySelector('.event__available-offers')
+      ?.addEventListener('change', this.#selectedPointOffersHandler);
     this.#setDatePicker();
   }
 
@@ -125,9 +137,13 @@ export default class TripFormView extends AbstractStatefulView {
     TripFormView.parsePointToState({ point: { ...this.#point } });
   };
 
-  #onFormSubmit = (evt) => {
-    evt.preventDefault();
-    this.#handleFormSubmit(TripFormView.parseStateToPoint(this._state));
+  #eventPriceHandler = (evt) => {
+    this._setState({
+      point: {
+        ...this._state.point,
+        basePrice: Number(evt.target.value),
+      },
+    });
   };
 
   #eventTypeHandler = (evt) => {
@@ -164,6 +180,16 @@ export default class TripFormView extends AbstractStatefulView {
     });
   };
 
+  #onFormSubmit = (evt) => {
+    evt.preventDefault();
+    this.#handleFormSubmit(this._state);
+  };
+
+  #onDeleteClick = (evt) => {
+    evt.preventDefault();
+    this.#handleDeleteClick(this._state);
+  };
+
   removeElement() {
     super.removeElement();
 
@@ -195,7 +221,6 @@ export default class TripFormView extends AbstractStatefulView {
 
     this.#dateEndPicker = flatpickr(endTime, {
       ...datePickerOptions,
-      // minDate: this._state.point.dateFrom,
       minDate: this._state.point.dateFrom,
       onChange: this.#changeDateHandler('dateTo'),
     });
@@ -205,7 +230,10 @@ export default class TripFormView extends AbstractStatefulView {
     (date) =>
       ([userDate]) => {
         this._setState({
-          [date]: userDate,
+          point: {
+            ...this._state.point,
+            [date]: userDate,
+          },
         });
 
         if (date === 'dateFrom') {
@@ -214,6 +242,21 @@ export default class TripFormView extends AbstractStatefulView {
           this.#dateStartPicker.set('maxDate', userDate);
         }
       };
+
+  #selectedPointOffersHandler = () => {
+    const selectedOffers = this.element.querySelectorAll(
+      '.event__offer-checkbox:checked'
+    );
+    const regExp = 'event-offer-';
+    this._setState({
+      point: {
+        ...this._state.point,
+        offers: Array.from(selectedOffers).map((item) =>
+          item.id.replace(regExp, '')
+        ),
+      },
+    });
+  };
 
   reset() {
     const destination = this.#pointDestinations.find(

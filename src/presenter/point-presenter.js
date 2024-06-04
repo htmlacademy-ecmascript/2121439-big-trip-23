@@ -1,4 +1,5 @@
 import { render, replace, remove } from '../framework/render';
+import { UserAction, UpdateType } from '../const';
 
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
 import TripFormView from '../view/trip-form-view';
@@ -60,6 +61,7 @@ export default class PointPresenter {
       allOffers: allOffers,
       onEditClick: this.#onFormClick,
       onFormSubmit: this.#onFormSubmit,
+      onDeleteClick: this.#handleDeleteClick,
     });
 
     if (
@@ -92,15 +94,17 @@ export default class PointPresenter {
   };
 
   #handleFavoriteClick = () => {
-    this.#handlePointUpdate({
+    this.#handlePointUpdate(UserAction.UPDATE_POINT, UpdateType.MINOR, {
       ...this.#point,
       isFavorite: !this.#point.isFavorite,
     });
   };
 
-  #onFormSubmit = () => {
+  #onFormSubmit = (state) => {
+    this.#handlePointUpdate(UserAction.UPDATE_POINT, UpdateType.MINOR, {
+      ...state.point,
+    });
     this.#switchToEventPoint();
-    this.#handlePointUpdate(this.#point);
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
@@ -113,6 +117,12 @@ export default class PointPresenter {
   #onFormClick = () => {
     this.#switchToEventPoint();
     document.removeEventListener('keydown', this.#escKeyDownHandler);
+  };
+
+  #handleDeleteClick = (state) => {
+    this.#handlePointUpdate(UserAction.DELETE_POINT, UpdateType.MINOR, {
+      ...state.point,
+    });
   };
 
   #switchToFormEdit() {
