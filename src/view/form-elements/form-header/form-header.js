@@ -22,7 +22,7 @@ export const createFormHeaderTemplate = (
     statePoint.point,
     statePoint.pointDestinations
   )}
-  ${createFormEventTimeTemplate()}
+  ${createFormEventTimeTemplate(statePoint.point)}
   ${createFormEventPriceTemplate(statePoint.point)}
   ${createFormEventButtonSubmitTemplate()}
   ${createFormEventButtonDeleteTemplate(formTypeSelect)}

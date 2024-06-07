@@ -22,18 +22,11 @@ function filterPointToPast(points) {
   return points.filter((point) => dayjs().isAfter(point.dateTo));
 }
 
-const filters = {
+const filterBy = {
   [FilterType.EVERYTHING]: (points) => filterPointEverything(points),
   [FilterType.FUTURE]: (points) => filterPointToFuture(points),
   [FilterType.PAST]: (points) => filterPointToPast(points),
   [FilterType.PRESENT]: (points) => filterPointToPresent(points),
 };
 
-function generateFilters(points) {
-  return Object.entries(filters).map(([filterType, filterPoints]) => ({
-    type: filterType,
-    hasPoints: filterPoints(points).length > 0,
-  }));
-}
-
-export { generateFilters };
+export { filterBy };

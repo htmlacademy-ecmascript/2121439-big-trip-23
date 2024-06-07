@@ -9,12 +9,17 @@ export const Mode = {
 };
 
 export const FilterType = {
-  EVERYTHING: 'Everything',
-  PAST: 'Past',
-  PRESENT: 'Present',
-  FUTURE: 'Future',
+  EVERYTHING: 'everything',
+  PAST: 'past',
+  PRESENT: 'present',
+  FUTURE: 'future',
 };
-
+export const filters = [
+  {
+    type: 'everything',
+    count: 0,
+  },
+];
 export const SortType = {
   DAY: 'day',
   EVENT: 'event',
