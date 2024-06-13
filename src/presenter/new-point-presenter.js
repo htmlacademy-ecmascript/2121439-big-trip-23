@@ -32,6 +32,12 @@ export default class NewPointPresenter {
       return;
     }
 
+    /**
+     * Нужна помощь именно здесь
+     * при добавлении новой точки конфликт с описанием ( destination.description)
+     *
+     */
+
     this.#pointEditFormComponent = new TripFormView({
       formType: FormType.FORM_ADD,
       destinations: this.#pointsDestinationModel.pointDestinations,
