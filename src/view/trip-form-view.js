@@ -25,11 +25,11 @@ const renderByTypeFormElement = (
 `;
   } else if (formTypeSelect === FormType.FORM_ADD) {
     return `<form class="event event--edit" action="#" method="post">
-    ${createFormHeaderTemplate(formTypeSelect, pointOffers)}
+    ${createFormHeaderTemplate(formTypeSelect, pointOffers, statePoint)}
     ${createFormEventDetailsTemplate(
-    formTypeSelect,
-    pointDestinations,
-    allOffers
+    statePoint.pointDestinations,
+    statePoint.pointOffers,
+    statePoint.point
   )}
     </form>
 `;
@@ -107,7 +107,7 @@ export default class TripFormView extends AbstractStatefulView {
   }
 
   _restoreHandlers() {
-    this.#rollupButton = this.element
+    this.element
       .querySelector('.event__rollup-btn')
       .addEventListener('click', this.#onClickEdit);
     this.element

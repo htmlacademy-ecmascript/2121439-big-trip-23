@@ -60,3 +60,84 @@ export const UpdateType = {
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
 };
+
+export const EVENT_TYPES = [
+  'Taxi',
+  'Bus',
+  'Train',
+  'Ship',
+  'Drive',
+  'Flight',
+  'Check-in',
+  'Sightseeing',
+  'Restaurant',
+];
+
+const DEFAULT_POINT_TYPE = EVENT_TYPES[5];
+
+export const DEFAULT_POINT = {
+  id: 0,
+  basePrice: 0,
+  dateFrom: new Date().toISOString(),
+  dateTo: new Date().toISOString(),
+  destination: 0,
+  isFavorite: false,
+  offers: [],
+  type: DEFAULT_POINT_TYPE,
+};
+
+export const BUTTON_OFFER_DEFAULT = {
+  type: 'flight',
+  offers: [
+    {
+      id: '2b8d3044-a1ab-46e6-a5ed-9ea129e06d8c',
+      title: 'Choose meal',
+      price: 138,
+    },
+
+    {
+      id: '224a68db-3228-4795-a8f7-d8fe7d277961',
+      title: 'Choose seats',
+      price: 100,
+    },
+
+    {
+      id: '54f0f8c5-8aba-4145-b222-e31104c15744',
+      title: 'Upgrade to comfort class',
+      price: 161,
+    },
+
+    {
+      id: 'bb11b5a1-54c8-4cad-bff3-4e3e130daf24',
+      title: 'Upgrade to business class',
+      price: 79,
+    },
+
+    {
+      id: '3c342fea-9f7e-43f7-b707-e2f68945443e',
+      title: 'Add luggage',
+      price: 189,
+    },
+
+    {
+      id: '7db912b8-a478-4677-b58e-6a04ebf4c3b4',
+      title: 'Business lounge',
+      price: 196,
+    },
+  ],
+};
+
+export const DESCRIPTION_DEFAULT = [
+  {
+    id: 'cfe416cq-10xa-ye10-8077-2fs9a01edcab',
+    description:
+      'Chamonix, is a beautiful city, a true asian pearl, with crowded streets.',
+    name: 'Chamonix',
+    pictures: [
+      {
+        src: 'http://picsum.photos/300/200?r=0.0762563005163317',
+        description: 'Chamonix parliament building',
+      },
+    ],
+  },
+];

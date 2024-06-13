@@ -4,7 +4,9 @@ export const createFormDetailDestinationTemplate = (
   pointDestinations,
   point
 ) => {
-  const destination = Object.values(pointDestinations).find((destinationId) => destinationId.id === point.destination);
+  const destination = Object.values(pointDestinations).find(
+    (destinationId) => destinationId.id === point.destination
+  );
 
   const isDescription =
     destination.description === '' ? 'No description' : destination.description;
