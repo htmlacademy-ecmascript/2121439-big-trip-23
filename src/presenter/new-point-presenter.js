@@ -31,7 +31,7 @@ export default class NewPointPresenter {
     if (this.#pointEditFormComponent !== null) {
       return;
     }
-    // Тут нужна помощь с отображением данных
+    // Тут нужна помощь с отображением данных, не работает description
     this.#pointEditFormComponent = new TripFormView({
       formType: FormType.FORM_ADD,
       destinations: this.#pointsDestinationModel.pointDestinations,
