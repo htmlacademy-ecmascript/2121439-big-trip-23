@@ -3,15 +3,15 @@ import { filterBy } from '../utils/point-time-filters';
 import { FilterType, UpdateType } from '../const';
 import TripFilterView from '../view/trip-filter-view';
 
-const filterContainer = document.querySelector('.trip-controls__filters');
+const filterElement = document.querySelector('.trip-controls__filters');
 
 export default class FilterPresenter {
   #pointModel = null;
   #filterModel = null;
 
   #filterComponent = null;
-  constructor(pointModel, filterModel) {
-    this.#pointModel = pointModel;
+  constructor({ pointsModel, filterModel }) {
+    this.#pointModel = pointsModel;
     this.#filterModel = filterModel;
 
     this.#pointModel.addObserver(this.#handleModelEvent);
@@ -39,7 +39,7 @@ export default class FilterPresenter {
     });
 
     if (prevFilterComponent === null) {
-      render(this.#filterComponent, filterContainer);
+      render(this.#filterComponent, filterElement);
       return;
     }
 

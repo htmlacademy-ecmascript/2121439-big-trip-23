@@ -3,7 +3,6 @@ import TripFormView from '../view/trip-form-view';
 import { UserAction, UpdateType } from '../const';
 import { FormType } from '../const';
 import { DEFAULT_POINT } from '../const';
-import { BUTTON_OFFER_DEFAULT } from '../const';
 
 export default class NewPointPresenter {
   #handleDataChange = null;
@@ -32,30 +31,27 @@ export default class NewPointPresenter {
       return;
     }
 
-    /**
-     * Нужна помощь именно здесь
-     * при добавлении новой точки конфликт с описанием ( destination.description)
-     *
-     */
-
     this.#pointEditFormComponent = new TripFormView({
       formType: FormType.FORM_ADD,
       destinations: this.#pointsDestinationModel.pointDestinations,
       pointOffers: this.#additionalOfferModel.additionalOffers,
       point: this.#point,
-      allOffers: BUTTON_OFFER_DEFAULT,
-      onEditClick: () => {},
+      allOffers: this.#additionalOfferModel.additionalOffers[0],
+      onEditClick: this.#clickEditHandler,
       onFormSubmit: this.#handleFormSubmit,
       onDeleteClick: this.#handleDeleteClick,
     });
 
-    const newFormContainer = document.querySelector('.trip-events__list');
+    const newFormElement = document.querySelector('.trip-events__list');
 
     render(
       this.#pointEditFormComponent,
-      newFormContainer,
+      newFormElement,
       RenderPosition.AFTERBEGIN
     );
+
+    const buttonSave = document.querySelector('.event__save-btn');
+    buttonSave.disabled = true;
 
     document.addEventListener('keydown', this.#escKeyDownHandler);
   }
@@ -72,11 +68,15 @@ export default class NewPointPresenter {
   }
 
   #handleFormSubmit = (point) => {
-    this.#handleDataChange(UserAction.ADD_POINT, UpdateType.MINOR, point);
+    this.#handleDataChange(UserAction.ADD_POINT, UpdateType.MINOR, point.point);
     this.destroy();
   };
 
   #handleDeleteClick = () => {
+    this.destroy();
+  };
+
+  #clickEditHandler = () => {
     this.destroy();
   };
 

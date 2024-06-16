@@ -10,7 +10,7 @@ const additionalOfferModel = new AdditionalOfferModel();
 const pointDestinationsModel = new PointDestinationsModel();
 const filterModel = new FilterModel();
 
-const filterPresenter = new FilterPresenter(pointsModel, filterModel);
+const filterPresenter = new FilterPresenter({ pointsModel, filterModel });
 
 const contentPresenter = new ContentPresenter({
   pointsModel,

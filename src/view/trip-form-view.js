@@ -15,7 +15,12 @@ const renderByTypeFormElement = (
 ) => {
   if (formTypeSelect === FormType.FORM_EDIT) {
     return `<form class="event event--edit" action="#" method="post">
-    ${createFormHeaderTemplate(formTypeSelect, pointOffers, statePoint)}
+    ${createFormHeaderTemplate(
+    formTypeSelect,
+    pointOffers,
+    statePoint,
+    formTypeSelect
+  )}
     ${createFormEventDetailsTemplate(
     statePoint.pointDestinations,
     statePoint.pointOffers,
@@ -25,7 +30,12 @@ const renderByTypeFormElement = (
 `;
   } else if (formTypeSelect === FormType.FORM_ADD) {
     return `<form class="event event--edit" action="#" method="post">
-    ${createFormHeaderTemplate(formTypeSelect, pointOffers, statePoint)}
+    ${createFormHeaderTemplate(
+    formTypeSelect,
+    pointOffers,
+    statePoint,
+    formTypeSelect
+  )}
     ${createFormEventDetailsTemplate(
     statePoint.pointDestinations,
     statePoint.pointOffers,
@@ -109,10 +119,11 @@ export default class TripFormView extends AbstractStatefulView {
   _restoreHandlers() {
     this.element
       .querySelector('.event__rollup-btn')
-      .addEventListener('click', this.#onClickEdit);
+      .addEventListener('click', this.#clickEditHandler);
     this.element
       .querySelector('form')
-      .addEventListener('submit', this.#onFormSubmit);
+      .addEventListener('submit', this.#formSubmitHandler);
+
     this.element
       .querySelector('.event__type-group')
       .addEventListener('change', this.#eventTypeHandler);
@@ -131,7 +142,7 @@ export default class TripFormView extends AbstractStatefulView {
     this.#setDatePicker();
   }
 
-  #onClickEdit = (evt) => {
+  #clickEditHandler = (evt) => {
     evt.preventDefault();
     this.#handleClickEdit();
     TripFormView.parsePointToState({ point: { ...this.#point } });
@@ -167,6 +178,7 @@ export default class TripFormView extends AbstractStatefulView {
   #eventDestinationsHandler = (evt) => {
     evt.preventDefault();
     const newValueOption = evt.target.value;
+
     const destination = this.#pointDestinations.find((item) =>
       item.name.toLowerCase().includes(newValueOption.toLowerCase())
     );
@@ -180,8 +192,9 @@ export default class TripFormView extends AbstractStatefulView {
     });
   };
 
-  #onFormSubmit = (evt) => {
+  #formSubmitHandler = (evt) => {
     evt.preventDefault();
+
     this.#handleFormSubmit(this._state);
   };
 
@@ -205,11 +218,11 @@ export default class TripFormView extends AbstractStatefulView {
   }
 
   #setDatePicker = () => {
-    const startTime = this.element.querySelector('#event-start-time-1');
-    const endTime = this.element.querySelector('#event-end-time-1');
+    const startTime = this.element.querySelector('[name="event-start-time"]');
+    const endTime = this.element.querySelector('[name="event-end-time"]');
     const datePickerOptions = {
       enableTime: true,
-      time24hr: true,
+      ['time_24hr']: true,
       dateFormat: FormatTime.DATE_PICKER,
     };
 

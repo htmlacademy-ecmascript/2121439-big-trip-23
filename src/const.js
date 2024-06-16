@@ -14,12 +14,7 @@ export const FilterType = {
   PRESENT: 'present',
   FUTURE: 'future',
 };
-export const filters = [
-  {
-    type: 'everything',
-    count: 0,
-  },
-];
+export const DEFAULT_FILTER_TYPE = FilterType.EVERYTHING;
 export const SortType = {
   DAY: 'day',
   EVENT: 'event',
@@ -27,6 +22,8 @@ export const SortType = {
   PRICE: 'price',
   OFFERS: 'offers',
 };
+
+export const DEFAULT_SORT_TYPE = SortType.DAY;
 
 export const FormatTime = {
   START_AND_END_TIMES: 'hh:mm',
@@ -73,14 +70,14 @@ export const EVENT_TYPES = [
   'Restaurant',
 ];
 
-const DEFAULT_POINT_TYPE = EVENT_TYPES[5];
+const DEFAULT_POINT_TYPE = EVENT_TYPES[0];
 
 export const DEFAULT_POINT = {
   id: 0,
   basePrice: 0,
   dateFrom: new Date().toISOString(),
   dateTo: new Date().toISOString(),
-  destination: 0,
+  destination: '',
   isFavorite: false,
   offers: [],
   type: DEFAULT_POINT_TYPE,
@@ -126,18 +123,3 @@ export const BUTTON_OFFER_DEFAULT = {
     },
   ],
 };
-
-export const DESCRIPTION_DEFAULT = [
-  {
-    id: 'cfe416cq-10xa-ye10-8077-2fs9a01edcab',
-    description:
-      'Chamonix, is a beautiful city, a true asian pearl, with crowded streets.',
-    name: 'Chamonix',
-    pictures: [
-      {
-        src: 'http://picsum.photos/300/200?r=0.0762563005163317',
-        description: 'Chamonix parliament building',
-      },
-    ],
-  },
-];

@@ -5,12 +5,6 @@ import { createFormEventPriceTemplate } from './form-event-price/form-event-pric
 import { createFormEventButtonSubmitTemplate } from './form-event-button/form-event-button-submit';
 import { createFormEventButtonDeleteTemplate } from './form-event-button/form-event-button-delete';
 import { createFormButtonEventOpenTemplate } from './form-event-button/form-button-open-event';
-import { FormType } from '../../../const';
-
-const getRenderByFormType = (formType) =>
-  `${
-    formType === FormType.FORM_ADD ? '' : createFormButtonEventOpenTemplate()
-  }`;
 
 export const createFormHeaderTemplate = (
   formTypeSelect,
@@ -20,12 +14,13 @@ export const createFormHeaderTemplate = (
   ${createFormTypeEventTemplate(pointOffers, statePoint.point)}
   ${createFormEventDestinationTemplate(
     statePoint.point,
-    statePoint.pointDestinations
+    statePoint.pointDestinations,
+    formTypeSelect
   )}
   ${createFormEventTimeTemplate(statePoint.point)}
   ${createFormEventPriceTemplate(statePoint.point)}
   ${createFormEventButtonSubmitTemplate()}
   ${createFormEventButtonDeleteTemplate(formTypeSelect)}
-  ${getRenderByFormType()}
+  ${createFormButtonEventOpenTemplate()}
 
 </header>`;

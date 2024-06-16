@@ -11,12 +11,14 @@ export default class AdditionalOfferModel {
   }
 
   getOffersByType(type) {
+    const typeTransform = type.toLowerCase();
     const allOffers = this.additionalOffers;
-    return allOffers.find((offer) => offer.type === type);
+    return allOffers.find((offer) => offer.type === typeTransform);
   }
 
   getOffersById(type, itemsId) {
     const offersType = this.getOffersByType(type);
+
     return offersType.offers.filter((item) =>
       itemsId.find((id) => item.id === id)
     );
