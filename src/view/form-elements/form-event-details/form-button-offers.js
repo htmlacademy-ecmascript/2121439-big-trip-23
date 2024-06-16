@@ -6,10 +6,10 @@ const createButtonsFormOfferTemplate = (allOffers, point) => {
     (item) => ` <div class="event__offer-selector">
   <input class="event__offer-checkbox  visually-hidden" id="event-offer-${
   item.id
-}-1" type="checkbox" name="event-offer-${item.id}" ${
+}" type="checkbox" name="event-offer-${item.id}" ${
   isChecked(item.id) ? 'checked' : ''
 }>
-  <label class="event__offer-label" for="event-offer-${item.id}-1">
+  <label class="event__offer-label" for="event-offer-${item.id}">
     <span class="event__offer-title">${item.title}</span>
     +€&nbsp;
     <span class="event__offer-price">${item.price}</span>
