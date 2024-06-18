@@ -28,7 +28,7 @@ export const DEFAULT_SORT_TYPE = SortType.DAY;
 export const FormatTime = {
   START_AND_END_TIMES: 'hh:mm',
   DATE_FROM: 'MMM DD',
-  DATE_FORM_EDIT: 'YY/MM/DD HH:mm',
+  DATE_FORM_EDIT: 'DD/MM/YY HH:mm',
   MINUTES: 'mm[M]',
   DAY: 'HH[H] mm[m]',
   DAYS: 'DD[D] HH[H] mm[M]',
@@ -56,6 +56,7 @@ export const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
+  INIT: 'INIT',
 };
 
 export const EVENT_TYPES = [
@@ -73,7 +74,6 @@ export const EVENT_TYPES = [
 const DEFAULT_POINT_TYPE = EVENT_TYPES[0];
 
 export const DEFAULT_POINT = {
-  id: 0,
   basePrice: 0,
   dateFrom: new Date().toISOString(),
   dateTo: new Date().toISOString(),
@@ -83,43 +83,11 @@ export const DEFAULT_POINT = {
   type: DEFAULT_POINT_TYPE,
 };
 
-export const BUTTON_OFFER_DEFAULT = {
-  type: 'flight',
-  offers: [
-    {
-      id: '2b8d3044-a1ab-46e6-a5ed-9ea129e06d8c',
-      title: 'Choose meal',
-      price: 138,
-    },
-
-    {
-      id: '224a68db-3228-4795-a8f7-d8fe7d277961',
-      title: 'Choose seats',
-      price: 100,
-    },
-
-    {
-      id: '54f0f8c5-8aba-4145-b222-e31104c15744',
-      title: 'Upgrade to comfort class',
-      price: 161,
-    },
-
-    {
-      id: 'bb11b5a1-54c8-4cad-bff3-4e3e130daf24',
-      title: 'Upgrade to business class',
-      price: 79,
-    },
-
-    {
-      id: '3c342fea-9f7e-43f7-b707-e2f68945443e',
-      title: 'Add luggage',
-      price: 189,
-    },
-
-    {
-      id: '7db912b8-a478-4677-b58e-6a04ebf4c3b4',
-      title: 'Business lounge',
-      price: 196,
-    },
-  ],
+export const Method = {
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
 };
+export const END_POINT = 'https://23.objects.htmlacademy.pro/big-trip';
+export const AUTHORIZATION = 'Basic jfjfhsdfsbcj12';

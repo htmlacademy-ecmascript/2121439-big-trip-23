@@ -1,4 +1,4 @@
-import { RenderPosition, render } from '../framework/render';
+import { RenderPosition, remove, render } from '../framework/render';
 import { filterBy } from '../utils/point-time-filters';
 
 import { UserAction, UpdateType } from '../const';
@@ -11,6 +11,7 @@ import TripListView from '../view/trip-list-view';
 import PointPresenter from './point-presenter';
 import NewPointPresenter from './new-point-presenter';
 import NewEventButton from '../view/trip-list-event-element/new-event-button';
+import LoadingView from '../view/loading-view';
 
 //Header element
 const pageHeaderElement = document.querySelector('.page-header__container');
@@ -24,12 +25,14 @@ export default class ContentPresenter {
   #additionalOfferModel = null;
   #pointDestinationsModel = null;
   #filterModel = null;
+  #isLoading = true;
 
   #buttonComponent = null;
 
   #pointsPresenter = new Map();
   #newPointPresenter = null;
   #sortComponent = null;
+  #loadingComponent = new LoadingView();
 
   #activeSortTypeButton = DEFAULT_SORT_TYPE;
   #filterType = DEFAULT_FILTER_TYPE;
@@ -69,6 +72,10 @@ export default class ContentPresenter {
     return this.#pointDestinationsModel.pointDestinations;
   }
 
+  get destinationNames() {
+    return this.#pointDestinationsModel.destinationNames;
+  }
+
   //Header render
   #renderTripInfoView() {
     render(
@@ -90,17 +97,26 @@ export default class ContentPresenter {
       pointOffers: this.pointOffers,
       onPointUpdate: this.#handleViewAction,
       onModeChange: this.#handleModeChange,
+      destinationNames: this.destinationNames,
     });
     pointPresenter.init(point);
     this.#pointsPresenter.set(point.id, pointPresenter);
   }
 
   #renderTripFormSortView() {
+    if (this.#sortComponent !== null) {
+      remove(this.#sortComponent);
+    }
+
     this.#sortComponent = new TripFormSortView(
       this.#activeSortTypeButton,
       this.#handleSortTypeChange
     );
-    render(this.#sortComponent, pageTripEventsElement);
+    render(
+      this.#sortComponent,
+      pageTripEventsElement,
+      RenderPosition.AFTERBEGIN
+    );
   }
 
   #renderTripPointEmptyView() {
@@ -114,12 +130,15 @@ export default class ContentPresenter {
   #handleViewAction = (actionType, updateType, updatePoint) => {
     switch (actionType) {
       case UserAction.UPDATE_POINT:
+        this.#pointsPresenter.get(updatePoint.id).setSaving();
         this.#pointsModel.updatePoint(updateType, updatePoint);
         break;
       case UserAction.ADD_POINT:
+        this.#newPointPresenter.setSaving();
         this.#pointsModel.addPoint(updateType, updatePoint);
         break;
       case UserAction.DELETE_POINT:
+        this.#pointsPresenter.get(updatePoint.id).setDeleting();
         this.#pointsModel.deletePoint(updateType, updatePoint);
         break;
     }
@@ -138,17 +157,34 @@ export default class ContentPresenter {
         this.#clearPoint({ resetSortType: true });
         this.#renderPointBody();
         break;
+      case UpdateType.INIT:
+        remove(this.#loadingComponent);
+        this.#renderPointBody();
     }
   };
 
   #renderPointBody() {
+    if (this.points.length > 0) {
+      this.#renderTripFormSortView();
+      this.#buttonComponent.element.disabled = false;
+    }
     this.points.forEach((point) => this.#renderTripEventsItemView(point));
+
+    if (this.#isLoading) {
+      this.#renderLoading();
+    }
+  }
+
+  #renderLoading() {
+    render(this.#loadingComponent, pageTripEventsElement);
   }
 
   #clearPoint({ resetSortType = false } = {}) {
     this.#pointsPresenter.forEach((presenter) => presenter.destroy());
     this.#pointsPresenter.clear();
     this.#newPointPresenter.destroy();
+    remove(this.#loadingComponent);
+
     if (resetSortType) {
       this.#activeSortTypeButton = DEFAULT_SORT_TYPE;
     }
@@ -158,6 +194,7 @@ export default class ContentPresenter {
     this.#buttonComponent = new NewEventButton({
       onClick: this.#handleNewPointButtonClick,
     });
+    this.#buttonComponent.element.disabled = true;
     render(this.#buttonComponent, tripMainHeaderElement);
   }
 
@@ -194,9 +231,8 @@ export default class ContentPresenter {
 
   init() {
     this.#renderTripInfoView();
-    this.#renderNewButtonEvent();
-    this.#renderTripFormSortView();
     this.#renderTripListView();
+    this.#renderNewButtonEvent();
     this.#renderPointBody();
   }
 }

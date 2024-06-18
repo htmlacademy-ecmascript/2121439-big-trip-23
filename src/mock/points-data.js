@@ -1,201 +1,31 @@
-export const pointsData = [
-  {
-    id: 'b1787d3a-2824-4666-ad29-e9fe1313326c',
-    basePrice: 562,
-    dateFrom: '2024-06-18T01:28:07.364Z',
-    dateTo: '2024-06-19T16:47:07.364Z',
-    destination: 'e1844f36-98ed-43d2-8663-0ea4c3dc9c90',
-    isFavorite: false,
-    offers: ['da88008a-b0f1-4dd9-8f5a-49c4a4ea7a39'],
-    type: 'ship',
-  },
-  {
-    id: 'cb9a5cdd-2b14-4183-aa5c-8714832af6d1',
-    basePrice: 8347,
-    dateFrom: '2024-06-20T01:59:07.364Z',
-    dateTo: '2024-06-20T13:16:07.364Z',
-    destination: 'e1844f36-98ed-43d2-8663-0ea4c3dc9c90',
-    isFavorite: true,
-    offers: [],
-    type: 'bus',
-  },
-  {
-    id: '9e4e5110-6532-495e-bd8f-b0686aa0c3a5',
-    basePrice: 4954,
-    dateFrom: '2024-06-21T12:15:07.364Z',
-    dateTo: '2024-06-22T06:37:07.364Z',
-    destination: '938f2e20-aea8-43a9-9bd7-49333d78cc58',
-    isFavorite: true,
-    offers: [],
-    type: 'flight',
-  },
-];
-
-export const pointDestinations = [
-  {
-    id: 'fd711e58-3cac-43b8-a3ce-cfda284d3fcc',
-    description: '',
-    name: 'Oslo',
-    pictures: [],
-  },
-  {
-    id: '570890ce-cb81-443c-9a43-78678678a433',
-    description:
-      'Kioto - with an embankment of a mighty river as a centre of attraction',
-    name: 'Kioto',
-    pictures: [
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/10.jpg',
-        description:
-          'Kioto famous for its crowded street markets with the best street food in Asia',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/19.jpg',
-        description: 'Kioto with a beautiful old town',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/17.jpg',
-        description: 'Kioto a true asian pearl',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/3.jpg',
-        description: 'Kioto in a middle of Europe',
-      },
-    ],
-  },
-  {
-    id: 'cde4182a-6c82-4de6-9b68-c7f2c2452f67',
-    description:
-      'Sochi - famous for its crowded street markets with the best street food in Asia',
-    name: 'Sochi',
-    pictures: [
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/12.jpg',
-        description: 'Sochi with a beautiful old town',
-      },
-    ],
-  },
-  {
-    id: '6f0d0a81-22bd-482b-949f-65db24a0a593',
-    description: 'Saint Petersburg - a true asian pearl',
-    name: 'Saint Petersburg',
-    pictures: [
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/19.jpg',
-        description: 'Saint Petersburg with crowded streets',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/11.jpg',
-        description: 'Saint Petersburg middle-eastern paradise',
-      },
-    ],
-  },
-  {
-    id: 'ee996048-2365-475d-9547-3ae95f553d80',
-    description: 'Venice - a true asian pearl',
-    name: 'Venice',
-    pictures: [
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/1.jpg',
-        description: 'Venice in a middle of Europe',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/1.jpg',
-        description: 'Venice middle-eastern paradise',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/12.jpg',
-        description: 'Venice a perfect place to stay with a family',
-      },
-    ],
-  },
-  {
-    id: 'cd23a18e-0a10-4d4e-b6a7-a39ea89f53bb',
-    description: '',
-    name: 'Amsterdam',
-    pictures: [],
-  },
-  {
-    id: 'e1844f36-98ed-43d2-8663-0ea4c3dc9c90',
-    description: '',
-    name: 'Tokio',
-    pictures: [],
-  },
-  {
-    id: '6ae9f746-9662-483b-aeee-036f3a06b92d',
-    description: 'Nagasaki - for those who value comfort and coziness',
-    name: 'Nagasaki',
-    pictures: [
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/1.jpg',
-        description: 'Nagasaki for those who value comfort and coziness',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/5.jpg',
-        description: 'Nagasaki in a middle of Europe',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/5.jpg',
-        description: 'Nagasaki is a beautiful city',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/20.jpg',
-        description: 'Nagasaki for those who value comfort and coziness',
-      },
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/9.jpg',
-        description: 'Nagasaki for those who value comfort and coziness',
-      },
-    ],
-  },
-  {
-    id: '938f2e20-aea8-43a9-9bd7-49333d78cc58',
-    description: 'Madrid - for those who value comfort and coziness',
-    name: 'Madrid',
-    pictures: [
-      {
-        src: 'https://23.objects.htmlacademy.pro/static/destinations/6.jpg',
-        description:
-          'Madrid full of of cozy canteens where you can try the best coffee in the Middle East',
-      },
-    ],
-  },
-  {
-    id: '38f3ccb5-14dd-48ac-9d9b-8e47d51053c9',
-    description: 'Vien - with crowded streets',
-    name: 'Vien',
-    pictures: [],
-  },
-];
-
 export const additionalPointOffers = [
   {
     type: 'taxi',
     offers: [
       {
-        id: '55f1ea4a-9b51-4a53-bf38-d606c73dffab',
+        id: '9c3c9370-b97d-4462-907d-c32d62109f18',
         title: 'Upgrade to a business class',
-        price: 78,
+        price: 42,
       },
       {
-        id: '67cbdeea-1708-4c3f-817e-708414901df4',
+        id: '9f6a0243-6540-41c3-800f-f2febe20e353',
         title: 'Choose the radio station',
-        price: 142,
+        price: 49,
       },
       {
-        id: '551d5aac-ab8b-4b63-8eae-7b75b204b60d',
+        id: '08df5fff-b2b8-48a1-8e42-82b0056e3023',
         title: 'Choose temperature',
-        price: 119,
+        price: 193,
       },
       {
-        id: 'dba262fc-ba7b-4bd9-86f8-e40364fd754f',
+        id: '545f8672-ad56-4041-a425-c1b204cdd7aa',
         title: 'Drive quickly, I\'m in a hurry',
-        price: 157,
+        price: 46,
       },
       {
-        id: 'd5512a06-8fb4-4e4f-a014-6d69794f6256',
+        id: 'dec2815a-1b1c-44e9-beb3-0c9c9abf7bab',
         title: 'Drive slowly',
-        price: 134,
+        price: 49,
       },
     ],
   },
@@ -203,19 +33,19 @@ export const additionalPointOffers = [
     type: 'bus',
     offers: [
       {
-        id: '3c8441f6-ab42-4f11-b71d-70d36c52a557',
+        id: 'a84f9900-35de-436d-9b65-16fe80daa43a',
         title: 'Infotainment system',
-        price: 150,
+        price: 119,
       },
       {
-        id: 'dfdc8d23-201b-4207-a1cc-98db868782f6',
+        id: '18d9bef9-d041-46ea-b74b-61f771351e3c',
         title: 'Order meal',
-        price: 170,
+        price: 153,
       },
       {
-        id: 'e8a21320-37c3-4dc9-bab9-3e826fe8a5e7',
+        id: 'e54af31f-4c8a-4c48-bf09-eeca92252a6f',
         title: 'Choose seats',
-        price: 179,
+        price: 105,
       },
     ],
   },
@@ -223,19 +53,19 @@ export const additionalPointOffers = [
     type: 'train',
     offers: [
       {
-        id: '6165ac14-30fa-4379-a8c4-12310b1a8693',
+        id: '7ef25898-a690-4350-af7c-db5971aa5979',
         title: 'Book a taxi at the arrival point',
-        price: 184,
+        price: 171,
       },
       {
-        id: 'f2448762-9c90-4d9d-9cce-4ad4531bacc6',
+        id: '6d19896a-e661-45ef-9273-5cf5ba3cbc38',
         title: 'Order a breakfast',
-        price: 186,
+        price: 104,
       },
       {
-        id: '666c4bdc-5b92-472d-931e-1359008d7625',
+        id: '8d065cab-2e44-47bb-95ab-bd2457f5f826',
         title: 'Wake up at a certain time',
-        price: 92,
+        price: 142,
       },
     ],
   },
@@ -243,34 +73,34 @@ export const additionalPointOffers = [
     type: 'flight',
     offers: [
       {
-        id: '2b8d3044-a1ab-46e6-a5ed-9ea129e06d8c',
+        id: 'df4c1f99-d333-40d4-9307-501ecd2dfba1',
         title: 'Choose meal',
-        price: 138,
+        price: 197,
       },
       {
-        id: '224a68db-3228-4795-a8f7-d8fe7d277961',
+        id: 'ecb4c1bb-1dd3-4a1c-9b86-19d297bf1cfa',
         title: 'Choose seats',
-        price: 100,
+        price: 116,
       },
       {
-        id: '54f0f8c5-8aba-4145-b222-e31104c15744',
+        id: 'efe01014-2351-4540-b46d-c5ec9983e6cd',
         title: 'Upgrade to comfort class',
-        price: 161,
+        price: 165,
       },
       {
-        id: 'bb11b5a1-54c8-4cad-bff3-4e3e130daf24',
+        id: '958ec298-21f6-4c71-9214-4781c55248b4',
         title: 'Upgrade to business class',
-        price: 79,
+        price: 152,
       },
       {
-        id: '3c342fea-9f7e-43f7-b707-e2f68945443e',
+        id: '19cca510-4cda-4a7c-bffb-5011d2d403c4',
         title: 'Add luggage',
-        price: 189,
+        price: 185,
       },
       {
-        id: '7db912b8-a478-4677-b58e-6a04ebf4c3b4',
+        id: '52622b98-8604-467f-b8f1-bb0eb191493e',
         title: 'Business lounge',
-        price: 196,
+        price: 125,
       },
     ],
   },
@@ -278,29 +108,29 @@ export const additionalPointOffers = [
     type: 'check-in',
     offers: [
       {
-        id: '15bb6ba7-adbf-49ae-84dc-f9b9e4bb0d9f',
+        id: 'fe60e0fd-fc60-454a-8709-98d421f66379',
         title: 'Choose the time of check-in',
-        price: 81,
+        price: 127,
       },
       {
-        id: 'ab61db35-0ec4-4f45-a8a8-e0383ebd4028',
+        id: '0b5dcbfd-208e-4bf4-88b1-3ce7c02b4463',
         title: 'Choose the time of check-out',
-        price: 57,
+        price: 129,
       },
       {
-        id: '0c961ae0-a71d-4bf8-9b3d-b7399b41f95c',
+        id: 'e89f6379-6b83-4e55-9edb-589d3f2802f0',
         title: 'Add breakfast',
-        price: 90,
+        price: 156,
       },
       {
-        id: 'cd0dfc92-1928-4feb-af70-1a44df73e49f',
+        id: '16f20d14-ee63-4853-a8b8-259f354bab10',
         title: 'Laundry',
-        price: 105,
+        price: 77,
       },
       {
-        id: '75237586-adb2-41f7-9562-5d0d780c8412',
+        id: '986e509f-a894-4087-8c52-f6352496e84b',
         title: 'Order a meal from the restaurant',
-        price: 179,
+        price: 84,
       },
     ],
   },
@@ -312,34 +142,34 @@ export const additionalPointOffers = [
     type: 'ship',
     offers: [
       {
-        id: '15b4720c-b607-4c6c-bba7-db623da74460',
+        id: '6ca02f35-f85b-47b3-97bb-9bac503099ef',
         title: 'Choose meal',
-        price: 121,
+        price: 37,
       },
       {
-        id: '041cab8c-ee74-419b-961f-d6396b33a5dc',
+        id: 'e65fd087-8f2b-46ac-9a8b-b93279a40029',
         title: 'Choose seats',
-        price: 100,
+        price: 154,
       },
       {
-        id: '5444d058-d066-4de8-b26c-6e84ce3ad616',
+        id: '030546ec-fe65-4cee-95bd-872f2137e17d',
         title: 'Upgrade to comfort class',
-        price: 152,
+        price: 97,
       },
       {
-        id: '5a3846c2-39f1-4a31-95bf-65ba6b421065',
+        id: '51662214-f2ff-4591-8d66-e717c02b20a9',
         title: 'Upgrade to business class',
-        price: 200,
+        price: 199,
       },
       {
-        id: 'b3f82299-bd1a-4477-83d1-1fcee825bbb0',
+        id: '9526ca25-2404-43ce-9600-ab1c734b5ab1',
         title: 'Add luggage',
-        price: 197,
+        price: 199,
       },
       {
-        id: 'da88008a-b0f1-4dd9-8f5a-49c4a4ea7a39',
+        id: 'cdc37012-2471-4c9d-b1d2-eeb071cd93f6',
         title: 'Business lounge',
-        price: 102,
+        price: 136,
       },
     ],
   },
@@ -347,14 +177,14 @@ export const additionalPointOffers = [
     type: 'drive',
     offers: [
       {
-        id: 'e887140a-118b-404a-be12-62250e4be9c1',
+        id: 'a8c915f1-2cd3-4b07-81a3-3247b4bc1607',
         title: 'With automatic transmission',
-        price: 149,
+        price: 76,
       },
       {
-        id: '3209ff9e-f4cb-4de2-98b6-06040e8ed1b8',
+        id: 'e3a7ca78-d74a-48d0-ab03-ba138814816f',
         title: 'With air conditioning',
-        price: 90,
+        price: 168,
       },
     ],
   },
@@ -362,14 +192,14 @@ export const additionalPointOffers = [
     type: 'restaurant',
     offers: [
       {
-        id: '98aed58a-b092-4cbd-b6b7-f91e9f8a3221',
+        id: '9667a707-103a-4883-9c46-760b795f9df5',
         title: 'Choose live music',
-        price: 176,
+        price: 85,
       },
       {
-        id: 'ac939d9e-5cd1-4a3b-b8ac-727d1c4084b3',
+        id: '3ab63924-6de3-42df-96f9-b29a1e6b91a7',
         title: 'Choose VIP area',
-        price: 177,
+        price: 120,
       },
     ],
   },

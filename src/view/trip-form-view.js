@@ -11,36 +11,43 @@ const renderByTypeFormElement = (
   pointDestinations,
   pointOffers,
   allOffers,
-  statePoint
+  statePoint,
+  destinationNames
 ) => {
   if (formTypeSelect === FormType.FORM_EDIT) {
     return `<form class="event event--edit" action="#" method="post">
+
     ${createFormHeaderTemplate(
     formTypeSelect,
     pointOffers,
     statePoint,
-    formTypeSelect
+    formTypeSelect,
+    destinationNames
   )}
     ${createFormEventDetailsTemplate(
     statePoint.pointDestinations,
     statePoint.pointOffers,
     statePoint.point
   )}
+
     </form>
 `;
   } else if (formTypeSelect === FormType.FORM_ADD) {
     return `<form class="event event--edit" action="#" method="post">
+
     ${createFormHeaderTemplate(
     formTypeSelect,
     pointOffers,
     statePoint,
-    formTypeSelect
+    formTypeSelect,
+    destinationNames
   )}
     ${createFormEventDetailsTemplate(
     statePoint.pointDestinations,
     statePoint.pointOffers,
     statePoint.point
   )}
+
     </form>
 `;
   }
@@ -51,18 +58,21 @@ const createTripFormTemplate = (
   pointDestinations,
   pointOffers,
   allOffers,
-  statePoint
+  statePoint,
+  destinationNames
 ) =>
   `<li class="trip-events__item">${renderByTypeFormElement(
     formTypeSelect,
     pointDestinations,
     pointOffers,
     allOffers,
-    statePoint
+    statePoint,
+    destinationNames
   )}</li>`;
 export default class TripFormView extends AbstractStatefulView {
   #formTypeSelect = null;
   #pointDestinations = null;
+  #destinationNames = null;
   #pointOffers = null;
   #point = null;
   #handleClickEdit = null;
@@ -83,6 +93,7 @@ export default class TripFormView extends AbstractStatefulView {
     onFormSubmit: onFormSubmit,
     allOffers: allOffers,
     onDeleteClick: onDeleteClick,
+    destinationNames: destinationNames,
   }) {
     super();
     this.#formTypeSelect = formTypeSelect;
@@ -94,6 +105,7 @@ export default class TripFormView extends AbstractStatefulView {
     this.#handleClickEdit = onEditClick;
     this.#handleFormSubmit = onFormSubmit;
     this.#handleDeleteClick = onDeleteClick;
+    this.#destinationNames = destinationNames;
 
     this._setState(
       TripFormView.parsePointToState({
@@ -112,7 +124,8 @@ export default class TripFormView extends AbstractStatefulView {
       this.#pointDestinations,
       this.#pointOffers,
       this.#allOffers,
-      this._state
+      this._state,
+      this.#destinationNames
     );
   }
 
@@ -188,6 +201,7 @@ export default class TripFormView extends AbstractStatefulView {
         ...this._state.point,
         destination: destination.id,
       },
+
       pointDestinations: [destination],
     });
   };
@@ -285,12 +299,22 @@ export default class TripFormView extends AbstractStatefulView {
   }
 
   static parsePointToState(point, pointDestinations, pointOffer) {
-    return { ...point, ...pointDestinations, ...pointOffer };
+    return {
+      ...point,
+      ...pointDestinations,
+      ...pointOffer,
+      isDisabled: false,
+      isSaving: false,
+      isDeleting: false,
+    };
   }
 
   static parseStateToPoint(state) {
     const point = { ...state };
 
+    delete state.isDisabled;
+    delete state.isDeleting;
+    delete state.isSaving;
     return point;
   }
 }

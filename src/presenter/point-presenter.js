@@ -15,22 +15,29 @@ export default class PointPresenter {
   #tripEventsList = null;
   #additionalOfferModel = null;
   #pointDestinations = null;
+  #destinationNames = null;
   #pointOffers = null;
   #formTypeSelect = FormType.FORM_EDIT;
   #mode = Mode.DEFAULT;
   #handlePointUpdate = null;
   #handleModeChange = null;
 
-  constructor({ pointDestinations, pointOffers, onPointUpdate, onModeChange }) {
+  constructor({
+    pointDestinations,
+    pointOffers,
+    onPointUpdate,
+    onModeChange,
+    destinationNames,
+  }) {
     this.#handlePointUpdate = onPointUpdate;
     this.#pointOffers = pointOffers;
     this.#pointDestinations = pointDestinations;
     this.#handleModeChange = onModeChange;
+    this.#destinationNames = destinationNames;
   }
 
   init(point) {
     this.#point = point;
-
     this.#tripEventsList =
       pageTripEventsElement.querySelector('.trip-events__list');
 
@@ -62,6 +69,7 @@ export default class PointPresenter {
       onEditClick: this.#onFormClick,
       onFormSubmit: this.#onFormSubmit,
       onDeleteClick: this.#handleDeleteClick,
+      destinationNames: this.#destinationNames,
     });
 
     if (
@@ -124,6 +132,24 @@ export default class PointPresenter {
       ...state.point,
     });
   };
+
+  setSaving() {
+    if (this.#mode === Mode.EDITING) {
+      this.#pointEditElementComponent.updateElement({
+        isDisabled: true,
+        isSaving: true,
+      });
+    }
+  }
+
+  setDeleting() {
+    if (this.#mode === Mode.EDITING) {
+      this.#pointEditElementComponent.updateElement({
+        isDisabled: true,
+        isDeleting: true,
+      });
+    }
+  }
 
   #switchToFormEdit() {
     replace(this.#pointEditElementComponent, this.#pointElementComponent);
