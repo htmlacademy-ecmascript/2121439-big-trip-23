@@ -1,13 +1,10 @@
-import { nameCitiesDestination } from '../../../../mock/points-data';
 import { FormType } from '../../../../const';
 import he from 'he';
 
 let inputValue = '';
 
-const createNameCitiesDestination = () =>
-  nameCitiesDestination.map(
-    (nameCities) => `<option value="${nameCities}"></option>`
-  );
+const createNameCitiesDestination = (destinations) =>
+  destinations.map((item) => `<option value="${item}"></option>`);
 
 const getValueDestination = (destination, point) => {
   Object.values(destination).map((item) => {
@@ -26,10 +23,12 @@ const selectDestination = (formTypeSelect) => {
 export const createFormEventDestinationTemplate = (
   point,
   pointDestinations,
-  formTypeSelect
+  formTypeSelect,
+  destinationNames
 ) => {
   selectDestination(formTypeSelect);
   getValueDestination(pointDestinations, point);
+
   return `<div class="event__field-group  event__field-group--destination">
   <label class="event__label  event__type-output" for="event-destination-1">
     ${point.type}
@@ -38,7 +37,7 @@ export const createFormEventDestinationTemplate = (
     inputValue
   )}" list="destination-list-1">
   <datalist id="destination-list-1">
-  ${createNameCitiesDestination().join('')}
+  ${createNameCitiesDestination(destinationNames).join('')}
   </datalist>
 </div>`;
 };

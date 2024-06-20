@@ -9,18 +9,22 @@ import { createFormButtonEventOpenTemplate } from './form-event-button/form-butt
 export const createFormHeaderTemplate = (
   formTypeSelect,
   pointOffers,
-  statePoint
+  statePoint,
+  _,
+  destinationNames
 ) => `<header class="event__header">
+
   ${createFormTypeEventTemplate(pointOffers, statePoint.point)}
   ${createFormEventDestinationTemplate(
     statePoint.point,
     statePoint.pointDestinations,
-    formTypeSelect
+    formTypeSelect,
+    destinationNames
   )}
   ${createFormEventTimeTemplate(statePoint.point)}
   ${createFormEventPriceTemplate(statePoint.point)}
-  ${createFormEventButtonSubmitTemplate()}
-  ${createFormEventButtonDeleteTemplate(formTypeSelect)}
+  ${createFormEventButtonSubmitTemplate(statePoint)}
+  ${createFormEventButtonDeleteTemplate(formTypeSelect, statePoint)}
   ${createFormButtonEventOpenTemplate()}
 
 </header>`;

@@ -1,8 +1,13 @@
 import { RenderPosition, remove, render } from '../framework/render';
 import TripFormView from '../view/trip-form-view';
-import { UserAction, UpdateType } from '../const';
-import { FormType } from '../const';
-import { DEFAULT_POINT } from '../const';
+
+import {
+  DEFAULT_POINT,
+  Mode,
+  FormType,
+  UserAction,
+  UpdateType,
+} from '../const';
 
 export default class NewPointPresenter {
   #handleDataChange = null;
@@ -12,6 +17,7 @@ export default class NewPointPresenter {
   #additionalOfferModel = null;
   #pointsDestinationModel = null;
   #pointEditFormComponent = null;
+  #mode = null;
 
   constructor({
     additionalOfferModel,
@@ -31,16 +37,7 @@ export default class NewPointPresenter {
       return;
     }
 
-    this.#pointEditFormComponent = new TripFormView({
-      formType: FormType.FORM_ADD,
-      destinations: this.#pointsDestinationModel.pointDestinations,
-      pointOffers: this.#additionalOfferModel.additionalOffers,
-      point: this.#point,
-      allOffers: this.#additionalOfferModel.additionalOffers[0],
-      onEditClick: this.#clickEditHandler,
-      onFormSubmit: this.#handleFormSubmit,
-      onDeleteClick: this.#handleDeleteClick,
-    });
+    this.#renderNewFormEvent();
 
     const newFormElement = document.querySelector('.trip-events__list');
 
@@ -56,6 +53,20 @@ export default class NewPointPresenter {
     document.addEventListener('keydown', this.#escKeyDownHandler);
   }
 
+  #renderNewFormEvent() {
+    this.#pointEditFormComponent = new TripFormView({
+      formType: FormType.FORM_ADD,
+      destinations: this.#pointsDestinationModel.pointDestinations,
+      pointOffers: this.#additionalOfferModel.additionalOffers,
+      point: this.#point,
+      allOffers: this.#additionalOfferModel.additionalOffers[0],
+      onEditClick: this.#clickEditHandler,
+      onFormSubmit: this.#handleFormSubmit,
+      onDeleteClick: this.#handleDeleteClick,
+      destinationNames: this.#pointsDestinationModel.destinationNames,
+    });
+  }
+
   destroy() {
     if (this.#pointEditFormComponent === null) {
       return;
@@ -69,8 +80,28 @@ export default class NewPointPresenter {
 
   #handleFormSubmit = (point) => {
     this.#handleDataChange(UserAction.ADD_POINT, UpdateType.MINOR, point.point);
-    this.destroy();
   };
+
+  setSaving() {
+    if (this.#mode === Mode.EDITING) {
+      this.#renderNewFormEvent.updateElement({
+        isDisabled: true,
+        isSaving: true,
+      });
+    }
+  }
+
+  setAborting() {
+    const resetFormState = () => {
+      this.#renderNewFormEvent.updateElement({
+        isDisabled: false,
+        isDeleting: false,
+        isSaving: false,
+      });
+    };
+
+    this.#renderNewFormEvent.shake(resetFormState);
+  }
 
   #handleDeleteClick = () => {
     this.destroy();

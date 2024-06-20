@@ -3,7 +3,7 @@ import { UserAction, UpdateType } from '../const';
 
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
 import TripFormView from '../view/trip-form-view';
-import AdditionalOfferModel from '../model/additional-offer-model';
+
 import { FormType, Mode } from '../const';
 
 const pageTripEventsElement = document.querySelector('.trip-events');
@@ -15,26 +15,34 @@ export default class PointPresenter {
   #tripEventsList = null;
   #additionalOfferModel = null;
   #pointDestinations = null;
+  #destinationNames = null;
   #pointOffers = null;
   #formTypeSelect = FormType.FORM_EDIT;
   #mode = Mode.DEFAULT;
   #handlePointUpdate = null;
   #handleModeChange = null;
 
-  constructor({ pointDestinations, pointOffers, onPointUpdate, onModeChange }) {
+  constructor({
+    pointDestinations,
+    pointOffers,
+    onPointUpdate,
+    onModeChange,
+    destinationNames,
+    additionalOfferModel,
+  }) {
     this.#handlePointUpdate = onPointUpdate;
     this.#pointOffers = pointOffers;
     this.#pointDestinations = pointDestinations;
     this.#handleModeChange = onModeChange;
+    this.#destinationNames = destinationNames;
+    this.#additionalOfferModel = additionalOfferModel;
   }
 
   init(point) {
     this.#point = point;
-
     this.#tripEventsList =
       pageTripEventsElement.querySelector('.trip-events__list');
 
-    this.#additionalOfferModel = new AdditionalOfferModel();
     const prevPointElementComponent = this.#pointElementComponent;
     const prevPointEditElementComponent = this.#pointEditElementComponent;
 
@@ -62,6 +70,7 @@ export default class PointPresenter {
       onEditClick: this.#onFormClick,
       onFormSubmit: this.#onFormSubmit,
       onDeleteClick: this.#handleDeleteClick,
+      destinationNames: this.#destinationNames,
     });
 
     if (
@@ -104,7 +113,7 @@ export default class PointPresenter {
     this.#handlePointUpdate(UserAction.UPDATE_POINT, UpdateType.MINOR, {
       ...state.point,
     });
-    this.#switchToEventPoint();
+
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
@@ -124,6 +133,36 @@ export default class PointPresenter {
       ...state.point,
     });
   };
+
+  setSaving() {
+    if (this.#mode === Mode.EDITING) {
+      this.#pointEditElementComponent.updateElement({
+        isDisabled: true,
+        isSaving: true,
+      });
+    }
+  }
+
+  setDeleting() {
+    if (this.#mode === Mode.EDITING) {
+      this.#pointEditElementComponent.updateElement({
+        isDisabled: true,
+        isDeleting: true,
+      });
+    }
+  }
+
+  setAborting() {
+    const resetFormState = () => {
+      this.#pointEditElementComponent.updateElement({
+        isDisabled: false,
+        isDeleting: false,
+        isSaving: false,
+      });
+    };
+
+    this.#pointEditElementComponent.shake(resetFormState);
+  }
 
   #switchToFormEdit() {
     replace(this.#pointEditElementComponent, this.#pointElementComponent);

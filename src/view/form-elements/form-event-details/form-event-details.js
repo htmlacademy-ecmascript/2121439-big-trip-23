@@ -7,6 +7,7 @@ export const createFormEventDetailsTemplate = (
   point
 ) =>
   `<section class="event__details">
+
     ${createFormButtonOffersTemplate(pointOffers, point)}
     ${createFormDetailDestinationTemplate(pointDestinations, point)}
   </section>`;

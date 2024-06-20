@@ -1,9 +1,13 @@
-import { additionalPointOffers } from '../mock/points-data';
-export default class AdditionalOfferModel {
-  #offers = [];
+import Observable from '../framework/observable';
+import { UpdateType } from '../const';
 
-  constructor() {
-    this.#offers = [...additionalPointOffers];
+export default class AdditionalOfferModel extends Observable {
+  #offers = [];
+  #pointsApiService = null;
+
+  constructor({ pointApiService }) {
+    super();
+    this.#pointsApiService = pointApiService;
   }
 
   get additionalOffers() {
@@ -22,5 +26,15 @@ export default class AdditionalOfferModel {
     return offersType.offers.filter((item) =>
       itemsId.find((id) => item.id === id)
     );
+  }
+
+  async init() {
+    try {
+      const offers = await this.#pointsApiService.offers;
+      this.#offers = offers;
+    } catch (err) {
+      this.#offers = [];
+    }
+    this._notify(UpdateType.INIT);
   }
 }
