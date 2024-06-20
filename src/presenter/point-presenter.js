@@ -3,7 +3,7 @@ import { UserAction, UpdateType } from '../const';
 
 import TripListEventElement from '../view/trip-list-event-element/trip-list-event-element';
 import TripFormView from '../view/trip-form-view';
-import AdditionalOfferModel from '../model/additional-offer-model';
+
 import { FormType, Mode } from '../const';
 
 const pageTripEventsElement = document.querySelector('.trip-events');
@@ -28,12 +28,14 @@ export default class PointPresenter {
     onPointUpdate,
     onModeChange,
     destinationNames,
+    additionalOfferModel,
   }) {
     this.#handlePointUpdate = onPointUpdate;
     this.#pointOffers = pointOffers;
     this.#pointDestinations = pointDestinations;
     this.#handleModeChange = onModeChange;
     this.#destinationNames = destinationNames;
+    this.#additionalOfferModel = additionalOfferModel;
   }
 
   init(point) {
@@ -41,7 +43,6 @@ export default class PointPresenter {
     this.#tripEventsList =
       pageTripEventsElement.querySelector('.trip-events__list');
 
-    this.#additionalOfferModel = new AdditionalOfferModel();
     const prevPointElementComponent = this.#pointElementComponent;
     const prevPointEditElementComponent = this.#pointEditElementComponent;
 
@@ -112,7 +113,7 @@ export default class PointPresenter {
     this.#handlePointUpdate(UserAction.UPDATE_POINT, UpdateType.MINOR, {
       ...state.point,
     });
-    this.#switchToEventPoint();
+
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   };
 
@@ -149,6 +150,18 @@ export default class PointPresenter {
         isDeleting: true,
       });
     }
+  }
+
+  setAborting() {
+    const resetFormState = () => {
+      this.#pointEditElementComponent.updateElement({
+        isDisabled: false,
+        isDeleting: false,
+        isSaving: false,
+      });
+    };
+
+    this.#pointEditElementComponent.shake(resetFormState);
   }
 
   #switchToFormEdit() {

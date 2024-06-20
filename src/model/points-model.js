@@ -3,6 +3,8 @@ import { UpdateType } from '../const';
 export default class PointsModel extends Observable {
   #points = [];
   #pointsApiService = null;
+  #isLoading = true;
+  #isLoadingFailed = false;
 
   constructor({ pointApiService }) {
     super();
@@ -13,14 +15,31 @@ export default class PointsModel extends Observable {
     return this.#points;
   }
 
+  get error() {
+    return this.#isLoadingFailed;
+  }
+
   async init() {
     try {
       const points = await this.#pointsApiService.points;
       this.#points = points.map(this.#adaptToClient);
     } catch (err) {
       this.#points = [];
+      this.#isLoading = false;
+      this.#isLoadingFailed = true;
     }
     this._notify(UpdateType.INIT);
+  }
+
+  async addPoint(updateType, updatePoint) {
+    try {
+      const response = await this.#pointsApiService.addPoint(updatePoint);
+      const newPoint = this.#adaptToClient(response);
+      this.#points = [newPoint, ...this.#points];
+      this._notify(updateType, newPoint);
+    } catch (error) {
+      new Error('"Can\'t update unexisting task"');
+    }
   }
 
   async updatePoint(updateType, updatePoint) {
@@ -33,7 +52,9 @@ export default class PointsModel extends Observable {
 
     try {
       const response = await this.#pointsApiService.updatePoint(updatePoint);
+
       const updatedPoint = this.#adaptToClient(response);
+
       this.#points = [
         ...this.#points.slice(0, index),
         updatedPoint,
@@ -41,18 +62,6 @@ export default class PointsModel extends Observable {
       ];
 
       this._notify(updateType, updatedPoint);
-    } catch (error) {
-      new Error('"Can\'t update unexisting task"');
-    }
-  }
-
-  async addPoint(updateType, updatePoint) {
-    try {
-      const response = await this.#pointsApiService.addPoint(updatePoint);
-      const newPoint = this.#adaptToClient(response);
-
-      this.#points = [newPoint, ...this.#points];
-      this._notify(updateType, newPoint);
     } catch (error) {
       new Error('"Can\'t update unexisting task"');
     }

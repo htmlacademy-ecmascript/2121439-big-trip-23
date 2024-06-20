@@ -201,14 +201,12 @@ export default class TripFormView extends AbstractStatefulView {
         ...this._state.point,
         destination: destination.id,
       },
-
       pointDestinations: [destination],
     });
   };
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-
     this.#handleFormSubmit(this._state);
   };
 

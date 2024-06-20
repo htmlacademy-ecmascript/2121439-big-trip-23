@@ -91,3 +91,20 @@ export const Method = {
 };
 export const END_POINT = 'https://23.objects.htmlacademy.pro/big-trip';
 export const AUTHORIZATION = 'Basic jfjfhsdfsbcj12';
+
+export const TimeLimit = {
+  LOWER_LIMIT: 350,
+  UPPER_LIMIT: 1000,
+};
+
+export const FilterMessage = {
+  [FilterType.EVERYTHING]: 'Click New Event to create your first point',
+  [FilterType.FUTURE]: 'There are no future events now',
+  [FilterType.PRESENT]: 'There are no present events now',
+  [FilterType.PAST]: 'There are no past events now',
+};
+
+export const EmptyMessageText = {
+  FAILED_LOAD: 'Failed to load latest route information',
+  LOADING: 'Loading...',
+};

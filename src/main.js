@@ -30,6 +30,9 @@ const contentPresenter = new ContentPresenter({
 
 filterPresenter.init();
 contentPresenter.init();
-Promise.all([pointDestinationsModel.init()]).finally(() => {
+Promise.all([
+  pointDestinationsModel.init(),
+  additionalOfferModel.init(),
+]).finally(() => {
   pointsModel.init();
 });
